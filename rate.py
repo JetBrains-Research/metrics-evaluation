@@ -1,18 +1,17 @@
 import click
 import json
-import os.path
+import os
+import random
 
 @click.command()
-@click.option('--filename', default='dataset.json', help='JSON dataset to be rated')
+@click.option('--filename', default='./to-grade/baseline.json', help='JSON dataset to be rated')
 def loadprint(filename):
 	with open(filename) as f:
 		dat = json.load(f)
-#	if os.path.isfile(filename[:-5]+'-out.json'):
-#		with open(filename[:-5]+'-out.json') as o:
-#			datout = json.load(o)
-#	else:
-#		datout = dat
-	for i in range(len(dat)):
+	mylist = list(range(len(dat)))
+	random.shuffle(mylist)
+	print(mylist)
+	for i in mylist:
 		if 'grade' not in dat[i]:
 			click.clear()
 			click.echo('''Is the suggested code snippet helpful or not helpful in solving the problem? 
@@ -39,16 +38,19 @@ def loadprint(filename):
 				elif c in ['0', '1', '2', '3', '4']:
 					#datout[i]['grade'] = c
 					dat[i]['grade'] = int(c)
+					with open(filename[:-5]+'.tmp.json', 'w') as o:
+						json.dump(dat, o)
 					break					
 				else:
 					print("Sorry, the input was invalid")
 					continue
 			if c == 'f':
 				break
-
-#	with open(filename[:-5]+'-out.json', 'w') as o:
-#		json.dump(datout, o)
 	click.echo('Thank you for grading!')
+	try:
+		os.remove(filename[:-5]+'.tmp.json')
+	except:
+		pass
 	with open(filename, 'w') as o:
 		json.dump(dat, o)	
 
