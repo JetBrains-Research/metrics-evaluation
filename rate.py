@@ -4,15 +4,16 @@ import os
 import random
 
 @click.command()
-@click.option('--filename', default='./to-grade/baseline.json', help='JSON dataset to be rated')
+@click.option('--filename', default='./to-grade/all-singles.json', help='JSON dataset of code snippets to be rated')
 def loadprint(filename):
 	with open(filename) as f:
 		dat = json.load(f)
-	mylist = list(range(len(dat)))
+	mylist = [(x, y) for x in range(len(dat)) for y in range(5)]
 	random.shuffle(mylist)
-	print(mylist)
-	for i in mylist:
-		if 'grade' not in dat[i]:
+	names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
+	for (i, j) in mylist:
+		sname = 'grade-' + names[j]
+		if sname not in dat[i]:
 			click.clear()
 			click.echo('''Is the suggested code snippet helpful or not helpful in solving the problem? 
 				Please rate it on a scale from 0 to 4. You can also enter \'f\' to finish rating or \'s\' to skip the snippet 
@@ -26,7 +27,7 @@ def loadprint(filename):
 			click.echo(dat[i]['intent'])
 			click.echo(' ')
 			click.echo('The snippet is:')
-			click.echo(dat[i]['snippet'])
+			click.echo(dat[i][names[j]])
 			click.echo(' ')
 			while True:
 				c = click.getchar()
@@ -36,8 +37,7 @@ def loadprint(filename):
 				elif c == 's':
 					break
 				elif c in ['0', '1', '2', '3', '4']:
-					#datout[i]['grade'] = c
-					dat[i]['grade'] = int(c)
+					dat[i][sname] = int(c)
 					with open(filename[:-5]+'.tmp.json', 'w') as o:
 						json.dump(dat, o)
 					break					
@@ -47,12 +47,12 @@ def loadprint(filename):
 			if c == 'f':
 				break
 	click.echo('Thank you for grading!')
+	with open(filename, 'w') as o:
+		json.dump(dat, o)	
 	try:
 		os.remove(filename[:-5]+'.tmp.json')
 	except:
 		pass
-	with open(filename, 'w') as o:
-		json.dump(dat, o)	
 
 if __name__ == '__main__':
 	loadprint()
