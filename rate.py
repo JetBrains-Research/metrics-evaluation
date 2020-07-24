@@ -35,7 +35,7 @@ def loadprint(filename):
 			click.echo(dat[i]['intent'])
 			click.echo(' ')
 			click.echo('The snippet is:')
-			click.echo(hl(dat[i][names[j]]))
+			click.echo(hl(dat[i][names[j]].replace("`", "'")))
 			click.echo(' ')
 			while True:
 				c = click.getchar()
