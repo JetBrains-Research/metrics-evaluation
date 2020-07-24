@@ -3,7 +3,9 @@ This repository will contain code to run the existing approaches to code generat
 
 ## Labeling the data
 To participate in data labeling, please follow these steps:
-* Clone the repository `git clone https://github.com/JetBrains-Research/metrics-evaluation.git`
+* Clone the repository: `git clone https://github.com/JetBrains-Research/metrics-evaluation.git`
+* (optional) Set up a virtual environment: `virtualenv venv && source venv/bin/activate` 
+* Install required packages: `pip install -r requirements.txt`
 * Run `python rate.py --filename to-grade/all-singles.json`
 * Follow the instructions in CLI!
 * When you are finished, send us your `to-grade/all-singles.json` or `to-grade/all-singles.tmp.json` file.
