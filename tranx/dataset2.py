@@ -58,8 +58,9 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, split, src_fr
     # held out (1-split)*len(train_examples) examples for development
     #full_train_examples = train_examples[:]
     # np.random.shuffle(train_examples)
-    dev_examples = train_examples[int(split*len(train_examples)):]
-    train_examples = train_examples[:int(split*len(train_examples))]
+    n_train_examples = int(split*len(train_examples))
+    dev_examples = train_examples[n_train_examples:]
+    train_examples = train_examples[:n_train_examples]
 
     mined_examples = []
     api_examples = []
@@ -116,16 +117,9 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, split, src_fr
     print('Avg action len: %d' % np.average(action_lens), file=sys.stderr)
     print('Actions larger than 100: %d' % len(list(filter(lambda x: x > 100, action_lens))),
           file=sys.stderr)
-    #dump_size = int(len(train_examples)/n_files)
     train_split = np.array_split(np.array(train_examples), n_files)
     for i, train_out in enumerate(train_split):
         pickle.dump(list(train_out),open(os.path.join(out_dir, f'train.all_{i}.bin'), 'wb'))
-#    for i in range(n_files-1):
-#        pickle.dump(train_examples[i * dump_size: (i+1) * dump_size],
-#                open(os.path.join(out_dir, 'train.all_{}.bin'.format(i)), 'wb'))
-#    pickle.dump(train_examples[(n_files-1) * dump_size:],
-#            open(os.path.join(out_dir, 'train.all_{}.bin'.format(n_files-1)), 'wb'))
-    #pickle.dump(full_train_examples, open(os.path.join(out_dir, 'train.gold.full.bin'), 'wb'))
     pickle.dump(dev_examples, open(os.path.join(out_dir, 'dev.bin'), 'wb'))
     pickle.dump(test_examples, open(os.path.join(out_dir, 'test.bin'), 'wb'))
     if mined_examples and api_examples:
@@ -275,11 +269,11 @@ if __name__ == '__main__':
     arg_parser.add_argument('--n_files', type=int, default=40, help='Number of files to dump the train output in')
     arg_parser.add_argument('--train_file', type=str, default='docstrings-train.json', help='JSON file with train dataset')
     arg_parser.add_argument('--test_file', type=str, default='docstrings-test.json', help='JSON file with test dataset')
-    arg_parser.add_argument('--split', type=float, default=0.97959, help='Ratio between train and dev parts') #0.97959 corresponds to the 0.96/(0.96+0.02) split we chose
+    #0.97959 corresponds to the 0.96/(0.96+0.02) split we chose
+    arg_parser.add_argument('--split', type=float, default=0.97959, help='Ratio between train and dev parts') 
     args = arg_parser.parse_args()
     print(os.getcwd())
 
-    # the json files can be downloaded from http://conala-corpus.github.io
     preprocess_conala_dataset(train_file=args.train_file,
                               test_file=args.test_file,
                               mined_data_file=args.pretrain,
