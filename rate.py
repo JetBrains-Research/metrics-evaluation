@@ -2,12 +2,24 @@ import click
 import json
 import os
 import random
+from pygments import highlight
+from pygments.lexers.python import PythonLexer
+from pygments.formatters.terminal import TerminalFormatter
+
+
+def hl(snippet):
+    return highlight(snippet, PythonLexer(), TerminalFormatter())
+
 
 @click.command()
 @click.option('--filename', default='./to-grade/all-singles.json', help='JSON dataset of code snippets to be rated')
 def loadprint(filename):
-	with open(filename) as f:
-		dat = json.load(f)
+	try:
+		with open(filename[:-5]+'.tmp.json') as f:
+			dat = json.load(f)
+	except:
+		with open(filename) as f:
+			dat = json.load(f)
 	mylist = [(x, y) for x in range(len(dat)) for y in range(5)]
 	random.shuffle(mylist)
 	names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
@@ -27,7 +39,7 @@ def loadprint(filename):
 			click.echo(dat[i]['intent'])
 			click.echo(' ')
 			click.echo('The snippet is:')
-			click.echo(dat[i][names[j]])
+			click.echo(hl(dat[i][names[j]].replace("`", "'")))
 			click.echo(' ')
 			while True:
 				c = click.getchar()
