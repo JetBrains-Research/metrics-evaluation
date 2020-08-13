@@ -5,13 +5,17 @@ from io import BytesIO
 from typing import List, Optional, Union, Any
 
 
-def split_into_tokens(code: str) -> List[str]:
+def split_into_tokens(code: str) -> Optional[List[str]]:
     try:
         tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
         tokens = [token.string for token in tokens]
+        return tokens
     except tokenize.TokenError:
-        tokens = code.split()
-    return tokens
+        return None
+
+
+def naive_split_into_tokens(code: str) -> List[str]:
+    return code.split()
 
 
 def create_ast(code: str) -> Optional[ast.AST]:
