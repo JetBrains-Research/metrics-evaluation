@@ -7,7 +7,7 @@ from typing import List, Optional, Union, Any
 
 def split_into_tokens(code: str) -> List[str]:
     try:
-        tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:]
+        tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
         tokens = [token.string for token in tokens]
     except tokenize.TokenError:
         tokens = code.split()
