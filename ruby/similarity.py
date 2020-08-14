@@ -1,37 +1,21 @@
-from typing import Optional, List
+from typing import Optional, Tuple
 
 import editdistance
 import zss
 
-from ruby.util import split_into_tokens, create_ast, get_ast_children, get_ast_node_label, \
-    ast_labels_distance, get_ast_size, naive_split_into_tokens
-
-
-def sequence_similarity(sample_seq: List[str], reference_seq: List[str]) -> float:
-    sample_len = len(sample_seq)
-    reference_len = len(reference_seq)
-    if sample_len == 0 and reference_len == 0:
-        return 1.
-    distance = editdistance.eval(sample_seq, reference_seq) / max(sample_len, reference_len)
-    return 1. - distance
+from ruby.util import tokenize_tranx, tokenize_builtin, create_ast, get_ast_children, \
+    get_ast_node_label, ast_labels_distance, get_ast_size
 
 
 def string_similarity(sample: str, reference: str) -> float:
-    sample_tokens = naive_split_into_tokens(sample)
-    reference_tokens = naive_split_into_tokens(reference)
-    return sequence_similarity(sample_tokens, reference_tokens)
-
-
-def token_similarity(sample: str, reference: str) -> Optional[float]:
-    sample_tokens = split_into_tokens(sample)
-    if sample_tokens is None:
-        return None
-
-    reference_tokens = split_into_tokens(reference)
-    if reference_tokens is None:
-        return None
-
-    return sequence_similarity(sample_tokens, reference_tokens)
+    sample_tokens = tokenize_tranx(sample)
+    reference_tokens = tokenize_tranx(reference)
+    sample_len = len(sample_tokens)
+    reference_len = len(reference_tokens)
+    if sample_len == 0 and reference_len == 0:
+        return 1.
+    distance = editdistance.eval(sample_tokens, reference_tokens) / max(sample_len, reference_len)
+    return 1. - distance
 
 
 def tree_similarity(sample: str, reference: str) -> Optional[float]:
@@ -56,11 +40,8 @@ def tree_similarity(sample: str, reference: str) -> Optional[float]:
     return 1. - tree_edit_distance / (sample_size + reference_size)
 
 
-def ruby(sample: str, reference: str) -> float:
+def ruby(sample: str, reference: str) -> Tuple[float, str]:
     tree_sim = tree_similarity(sample, reference)
     if tree_sim is not None:
-        return tree_sim
-    token_sim = token_similarity(sample, reference)
-    if token_sim is not None:
-        return token_sim
-    return string_similarity(sample, reference)
+        return tree_sim, "tree"
+    return string_similarity(sample, reference), "string"
