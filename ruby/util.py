@@ -1,16 +1,34 @@
 import tokenize
 import ast
+import re
 
 from io import BytesIO
 from typing import List, Optional, Union, Any
 
 
-def split_into_tokens(code: str) -> List[str]:
+def tokenize_builtin(code: str) -> List[str]:
     try:
         tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
         tokens = [token.string for token in tokens]
     except tokenize.TokenError:
-        tokens = code.split()
+        tokens = tokenize_tranx(code)
+    return tokens
+
+
+def tokenize_tranx(code: str) -> List[str]:
+    """ The tokenizer taken from https://github.com/pcyin/tranX
+        Originally from Wang Ling et al.,
+        Latent Predictor Networks for Code Generation (2016)
+        @param code: string containing a code snippet
+        @return: list of code tokens
+    """
+    code = re.sub(r'([^A-Za-z0-9_])', r' \1 ', code)
+    code = re.sub(r'([a-z])([A-Z])', r'\1 \2', code)
+    code = re.sub(r'\s+', ' ', code)
+    code = code.replace('"', '`')
+    code = code.replace('\'', '`')
+    tokens = [t for t in code.split(' ') if t]
+
     return tokens
 
 
