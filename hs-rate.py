@@ -3,12 +3,7 @@ import PySimpleGUI as sg
 import json
 import os
 import random
-from pygments import highlight
-from pygments.lexers.python import PythonLexer
-from pygments.formatters.terminal import TerminalFormatter
-
-def hl(snippet):
-    return highlight(snippet, PythonLexer(), TerminalFormatter())
+import tkinter as tk
 
 filename='./to-grade/hs.json'
 try:
@@ -20,6 +15,7 @@ except:
 mylist = [(x, y) for x in range(len(dat)) for y in range(3)]
 random.shuffle(mylist)
 names = ('gcnn', 'nl2code', 'snippet')
+
 
 file_list_column = [
 
@@ -35,11 +31,11 @@ file_list_column = [
 
     ],
 
-    [sg.Radio('4', "RADIO1", enable_events=True, font=("Helvetica", 12), key='4'),
-    sg.Radio('3', "RADIO1", enable_events=True, font=("Helvetica", 12), key='3'),
-    sg.Radio('2', "RADIO1", enable_events=True, font=("Helvetica", 12), key='2'),
-    sg.Radio('1', "RADIO1", enable_events=True, font=("Helvetica", 12), key='1'),
-    sg.Radio('0', "RADIO1", enable_events=True, font=("Helvetica", 12), key='0')],
+    [sg.Radio('4', "RADIO1", enable_events=True, font=("Helvetica", 12), key='4', size=(10,10)),
+    sg.Radio('3', "RADIO1", enable_events=True, font=("Helvetica", 12), key='3', size=(10,10)),
+    sg.Radio('2', "RADIO1", enable_events=True, font=("Helvetica", 12), key='2', size=(10,10)),
+    sg.Radio('1', "RADIO1", enable_events=True, font=("Helvetica", 12), key='1', size=(10,10)),
+    sg.Radio('0', "RADIO1", enable_events=True, font=("Helvetica", 12), key='0', size=(10,10))],
 
     [sg.Cancel(button_text="Skip"), sg.Exit()],
     [sg.Text(''), sg.Text(size=(150, 40), key='-OUTPUT-', font=("Helvetica", 12))]
@@ -70,9 +66,14 @@ layout = [
     ]
 
 ]
+layout1 = [[sg.Text('')]]
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+scaling_window = sg.Window('Window Title', layout1, no_titlebar=True, auto_close=False, alpha_channel=0).Finalize()
+scaling_window.TKroot.tk.call('tk', 'scaling', max(screen_width/1920,1))
+scaling_window.close()
+window = sg.Window("Hearthstone dataset grader", layout, finalize=True, location=(0,0), return_keyboard_events=True)
 
-
-window = sg.Window("Hearthstone dataset grader", layout, finalize=True, location=(0,0))
 
 # Run the Event Loop
 for (i, j) in mylist:
