@@ -18,6 +18,7 @@ To participate in the Hearthstone data labeling, please follow these steps:
 * Install required packages: `pip install -r requirements.txt`
 * Run `python hs-rate.py`
 * Follow the instruction in the app!
+* The description of the used classes can be found at https://github.com/danielyule/hearthbreaker/blob/master/hearthbreaker/cards/base.py
 * After you have graded several examples, please check if the to-grade/hs.tmp.json file has been created; if it is absent, please contact Misha
 * When you are finished, send us your `to-grade/hs.json` or `to-grade/hs.tmp.json` file.
 * Any contribution is very-very valuable, so don't hesitate to send the files with any amount of labels!
