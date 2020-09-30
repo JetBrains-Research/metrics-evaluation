@@ -77,28 +77,39 @@ window = sg.Window("Hearthstone dataset grader", layout, finalize=True, location
 
 # Run the Event Loop
 for (i, j) in mylist:
+    successful = False
+    finished = False
     sname = 'grade-' + names[j]
     if sname not in dat[i]:
         window['-OUTPUT-'].update(dat[i][names[j]])
         window["-IMAGE-"].update(filename='./hs_cards/'+str(i)+'.png')
-        event, values = window.read()
-        if event == "Exit" or event == sg.WIN_CLOSED:
-            with open(filename, 'w') as o:
-                json.dump(dat, o)   
-            try:
-                os.remove(filename[:-5]+'.tmp.json')
-            except:
+        while not successful:
+            event, values = window.read()
+            if event == "Exit" or event == sg.WIN_CLOSED:
+                with open(filename, 'w') as o:
+                    json.dump(dat, o)
+                try:
+                    os.remove(filename[:-5]+'.tmp.json')
+                except:
+                    pass
+                finished = True
+                successful = True
+
+            elif event[0] in ['0', '1', '2', '3', '4']:
+                successful = True
+                dat[i][sname] = int(event)
+                with open(filename[:-5]+'.tmp.json', 'w') as o:
+                    json.dump(dat, o)
+
+
+            elif event == "Skip":
+                successful = True
                 pass
-            break
+            else:
+                sg.popup(event)
+    if finished:
+        break
 
-        if event in ['0', '1', '2', '3', '4']:
-            dat[i][sname] = int(event)
-            with open(filename[:-5]+'.tmp.json', 'w') as o:
-                json.dump(dat, o)
-
-
-        elif event == "Cancel":  
-            pass
 
 with open(filename, 'w') as o:
     json.dump(dat, o)   
