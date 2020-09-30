@@ -22,7 +22,8 @@ file_list_column = [
     [
 
         sg.Text('''Is the code snippet below relevant or not relevant description of the card on the right? 
-                Please rate it on a scale from 0 to 4. You can also press \'Exit\' to finish rating or \'Skip\' to skip the snippet 
+                Please rate it on a scale from 0 to 4. You can either press on the radio button or press the corresponding key (\'4\' for 4 etc.) 
+                You can also press \'Exit\' to finish grading or \'Skip\' to skip the snippet 
                 4: Snippet is very relevant, it describes the card exactly
                 3: Snippet is relevant, but needs to be slightly changed to describe the card exactly
                 2: Snippet is somewhat relevant, it requires significant changes (compared to the size of the snippet), but is still useful to describe the card
