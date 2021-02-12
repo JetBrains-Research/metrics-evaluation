@@ -1,8 +1,8 @@
 from typing import Optional
 
-from graph_generator.typeparsing.nodes import parse_type_annotation_node, TypeAnnotationNode, SubscriptAnnotationNode, \
+from codebleu.graph_generator.typeparsing.nodes import parse_type_annotation_node, TypeAnnotationNode, SubscriptAnnotationNode, \
     IndexAnnotationNode, ElipsisAnnotationNode, TupleAnnotationNode
-from graph_generator.typeparsing.rewriterules import RewriteRule
+from codebleu.graph_generator.typeparsing.rewriterules import RewriteRule
 
 __all__ = ['RemoveGenericWithAnys']
 

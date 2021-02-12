@@ -1,8 +1,8 @@
 from itertools import product
 
-from graph_generator.typeparsing.nodes import SubscriptAnnotationNode, TupleAnnotationNode, ListAnnotationNode, AttributeAnnotationNode, \
+from codebleu.graph_generator.typeparsing.nodes import SubscriptAnnotationNode, TupleAnnotationNode, ListAnnotationNode, AttributeAnnotationNode, \
     IndexAnnotationNode, ElipsisAnnotationNode
-from graph_generator.typeparsing.visitor import TypeAnnotationVisitor
+from codebleu.graph_generator.typeparsing.visitor import TypeAnnotationVisitor
 
 __all__ = ['EraseOnceTypeRemoval']
 
