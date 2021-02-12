@@ -3,7 +3,10 @@ import ast
 import re
 
 from io import BytesIO
-from typing import List, Optional, Union, Any
+from typing import List, Optional, Union, Any, Dict
+
+from codebleu.graph_generator.graphgenerator import AstGraphGenerator
+from codebleu.graph_generator.type_lattice_generator import TypeLatticeGenerator
 
 
 def tokenize_builtin(code: str) -> List[str]:
@@ -35,6 +38,16 @@ def tokenize_tranx(code: str) -> List[str]:
 def create_ast(code: str) -> Optional[ast.AST]:
     try:
         return ast.parse(code)
+    except SyntaxError:
+        return None
+
+
+def create_graph(code: str) -> Optional[Dict]:
+    try:
+        lattice = TypeLatticeGenerator('codebleu/typingRules.json')
+        generator = AstGraphGenerator(code, lattice)
+        graph = generator.build()
+        return graph
     except SyntaxError:
         return None
 
