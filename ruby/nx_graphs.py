@@ -71,7 +71,7 @@ def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_
         try:
             new_ged = func_timeout(0.1, next, args=(ged_generator,))
             ged = new_ged
-        except FunctionTimedOut:
+        except (FunctionTimedOut, StopIteration):
             break
 
     return ged, total_size
