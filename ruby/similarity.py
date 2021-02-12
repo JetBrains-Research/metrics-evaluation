@@ -1,10 +1,9 @@
 from typing import Optional, Tuple
 
 import editdistance
-import zss
 
-from ruby.util import tokenize_tranx, tokenize_builtin, create_ast, get_ast_children, \
-    get_ast_node_label, ast_labels_distance, get_ast_size
+from ruby.nx_graphs import compute_ged, convert_ast_to_graph, convert_dict_to_graph
+from ruby.util import tokenize_tranx, create_ast, create_graph
 
 
 def string_similarity(sample: str, reference: str) -> float:
@@ -27,20 +26,33 @@ def tree_similarity(sample: str, reference: str) -> Optional[float]:
     if reference_tree is None:
         return None
 
-    tree_edit_distance = zss.simple_distance(
-        sample_tree, reference_tree,
-        get_children=get_ast_children,
-        get_label=get_ast_node_label,
-        label_dist=ast_labels_distance
+    tree_edit_distance, total_size = compute_ged(
+        convert_ast_to_graph(sample_tree), convert_ast_to_graph(reference_tree), use_edge_cost=False
     )
 
-    sample_size = get_ast_size(sample_tree)
-    reference_size = get_ast_size(reference_tree)
+    return 1. - tree_edit_distance / total_size
 
-    return 1. - tree_edit_distance / (sample_size + reference_size)
+
+def graph_similarity(sample: str, reference: str) -> Optional[float]:
+    sample_graph = create_graph(sample)
+    if sample_graph is None:
+        return None
+
+    reference_graph = create_graph(reference)
+    if reference_graph is None:
+        return None
+
+    graph_edit_distance, total_size = compute_ged(
+        convert_dict_to_graph(sample_graph), convert_dict_to_graph(reference_graph), use_edge_cost=True
+    )
+
+    return 1. - graph_edit_distance / total_size
 
 
 def ruby(sample: str, reference: str) -> Tuple[float, str]:
+    graph_sim = graph_similarity(sample, reference)
+    if graph_sim is not None:
+        return graph_sim, "graph"
     tree_sim = tree_similarity(sample, reference)
     if tree_sim is not None:
         return tree_sim, "tree"
