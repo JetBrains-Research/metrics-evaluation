@@ -1,5 +1,5 @@
 click==7.1.2
-Pygments==2.6.1
+Pygments==2.7.4
 editdistance>=0.5.3
 zss>=1.2.0
 pysimplegui>=4.29.0
