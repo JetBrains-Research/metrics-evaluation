@@ -10,6 +10,9 @@ from pygments.formatters.terminal import TerminalFormatter
 def hl(snippet):
     return highlight(snippet, PythonLexer(), TerminalFormatter())
 
+gauge = (1, 5, 49, 70, 91, 93, 97, 110, 114, 127, 136, 151, 171, 194, 202, 213, 219, 226, 227, 236, 241, 255, 257, 294, 295, 317, 356, 365, 374, 395, 405, 411, 416, 426, 434, 445, 457, 459, 464, 466)
+# gauge is the list of 40 intents with 40*5 = 200 snippets to be graded by all our graders. These will allow to compare the graders and yield better estimate for the other grades
+names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
 
 @click.command()
 @click.option('--filename', default='./to-grade/all-singles.json', help='JSON dataset of code snippets to be rated')
@@ -20,9 +23,16 @@ def loadprint(filename):
 	except:
 		with open(filename) as f:
 			dat = json.load(f)
-	mylist = [(x, y) for x in range(len(dat)) for y in range(5)]
+	mylist = [(x, y) for x in gauge for y in range(5)]
+	testlist = [(x, y) for x in range(len(dat)) if x not in gauge for y in range(5)]
+	random.shuffle(testlist)
 	random.shuffle(mylist)
-	names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
+	mylist.extend(testlist)
+	cnt = 0
+	for (i, j) in mylist:
+		sname = 'grade-' + names[j]
+		if sname in dat[i]:
+			cnt += 1
 	for (i, j) in mylist:
 		sname = 'grade-' + names[j]
 		if sname not in dat[i]:
@@ -41,6 +51,9 @@ def loadprint(filename):
 			click.echo('The snippet is:')
 			click.echo(hl(dat[i][names[j]].replace("`", "'")))
 			click.echo(' ')
+			click.echo(' ')
+			click.echo(' ')
+			click.echo('You have graded ' + str(cnt) + ' snippets so far')
 			while True:
 				c = click.getchar()
 				click.echo(c)
@@ -50,6 +63,7 @@ def loadprint(filename):
 					break
 				elif c in ['0', '1', '2', '3', '4']:
 					dat[i][sname] = int(c)
+					cnt += 1
 					with open(filename[:-5]+'.tmp.json', 'w') as o:
 						json.dump(dat, o)
 					break					
