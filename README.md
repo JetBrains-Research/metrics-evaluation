@@ -9,7 +9,7 @@ To participate in the CoNaLa data labeling, please follow these steps:
 * Run `python rate.py --filename to-grade/all-singles.json`
 * Follow the instructions in CLI!
 * When you are finished, send us your `to-grade/all-singles.json` or `to-grade/all-singles.tmp.json` file.
-* Any contribution is very-very valuable, so don't hesitate to send the files with any amount of labels!
+* The first 200 snippets are similar for all graders, and are also going to be used for comparing the grading styles. 
 
 ## Labeling the Hearthstone data
 To participate in the Hearthstone data labeling, please follow these steps:
