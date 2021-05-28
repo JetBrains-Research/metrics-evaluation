@@ -17,6 +17,7 @@ To participate in the Hearthstone data labeling, please follow these steps:
 * (optional) Set up a virtual environment: `virtualenv venv && source venv/bin/activate`
 * Install required packages: `pip install -r requirements.txt`
 * Run `python hs-rate.py`
+* In case the app doesn't run, you may need to install package `tkinter` system-wide (please get in touch if further instructions are needed)
 * Follow the instruction in the app!
 * The description of the used classes can be found at https://github.com/danielyule/hearthbreaker/blob/master/hearthbreaker/cards/base.py
 * After you have graded several examples, please check if the to-grade/hs.tmp.json file has been created; if it is absent, please contact Misha
