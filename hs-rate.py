@@ -75,21 +75,25 @@ or about the way the study is being conducted, please contact Mikhail Evtikhiev 
                         font=("Helvetica", 12))],
 
                [sg.Text('''In the text box below please write, for how long have you been programming in Python (in years), 
-rounded to the nearest integer number. This information will be reported in the publication in an aggregated form.''')],
+rounded to the nearest integer number. This information will be reported in the publication in an aggregated form.''',
+                        font=("Helvetica", 12))],
 
-               [sg.Text('Python experience: ', key='_text1_'), sg.InputText(key='_python_', size=(10, 1))],
+               [sg.Text('Python experience: ', key='_text1_',
+                        font=("Helvetica", 12)), sg.InputText(key='_python_', size=(10, 1))],
 
                [sg.Text('''In the text box below please write your Slack handle or e-mail address. This information will be kept private and we only ask for it 
 to be able to reach back to you to clarify any technical uncertainties with the graded snippets, if such uncertainties shall arise.''')],
 
-               [sg.Text('Contact information: ', key='_text2_'), sg.InputText(key='_contact_', size=(30, 1))],
+               [sg.Text('Contact information: ', key='_text2_',
+                        font=("Helvetica", 12)), sg.InputText(key='_contact_', size=(30, 1))],
 
                [sg.Text('''ELECTRONIC CONSENT\n
 Please select your choice below. Selecting the “yes” option below indicates that: 
 i) you have read and understood the above information, 
 ii) you voluntarily agree to participate, and 
 iii) you are at least 18 years old. 
-If you do not wish to participate in the research study, please decline participation by selecting “No”.''')],
+If you do not wish to participate in the research study, please decline participation by selecting “No”.''',
+                        font=("Helvetica", 12))],
 
                [sg.Ok(button_text="Yes"), sg.Exit(button_text="No")],
 
