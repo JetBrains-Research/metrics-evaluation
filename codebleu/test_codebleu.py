@@ -29,5 +29,6 @@ class TestGraphGenerator(unittest.TestCase):
     def test_parse_occurences(self):
 
 
+
 if __name__ == '__main__':
     unittest.main()
