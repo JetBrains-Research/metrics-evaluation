@@ -26,9 +26,10 @@ class TestGraphGenerator(unittest.TestCase):
         self.assertRaises(Exception, cbl._split_identifier('___'))
         self.assertRaises(Exception, cbl._split_identifier('_asd'))
 
-    def test_parse_occurences(self):
+    #def test_fix_graph(self):
 
-
+    def test_codebleu(self):
+        self.assertEqual(cbl.codebleu("[1,2,3].sort()", "[1,2,3].sort()"), 1.0)
 
 if __name__ == '__main__':
     unittest.main()

@@ -287,9 +287,9 @@ def weighted_bleu(reference, candidate):  # the wighted bleu part of the metric
 
 def codebleu(reference, candidate, weights=[0.1, 0.1, 0.4, 0.4]):
     parser = Parser()
-    PY_LANGUAGE = Language('./my-languages.so', 'python')
+    PY_LANGUAGE = Language('codebleu/my-languages.so', 'python')
     parser.set_language(PY_LANGUAGE)
-    lattice = TypeLatticeGenerator('typingRules.json')
+    lattice = TypeLatticeGenerator('codebleu/typingRules.json')
     scores = pure_bleu(reference, candidate), weighted_bleu(reference, candidate), ast_match(reference, candidate,
                                                                                              parser), dfg_match(
         reference, candidate, lattice)
