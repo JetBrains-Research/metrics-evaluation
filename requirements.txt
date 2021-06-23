@@ -4,9 +4,12 @@ editdistance>=0.5.3
 zss>=1.2.0
 pysimplegui>=4.29.0
 pytest
-matplotlib
-tqdm
+matplotlib~=3.4.2
+tqdm~=4.61.0
 dpu_utils
 typed_ast
-networkx
+networkx~=2.5.1
 tree_sitter
+numpy~=1.20.3
+docopt~=0.6.2
+func-timeout
