@@ -2,13 +2,11 @@ import tokenize
 import re
 import keyword
 import json
-from bleu_score import compute_bleu
+from codebleu.bleu_score import compute_bleu
 import itertools
-from collections import defaultdict
 from tree_sitter import Language, Parser
-import graph_generator.graphgenerator as gg
-import graph_generator.graphgenutils as gu
-from graph_generator.type_lattice_generator import TypeLatticeGenerator
+import codebleu.graph_generator.graphgenerator as gg
+from codebleu.graph_generator.type_lattice_generator import TypeLatticeGenerator
 import networkx as nx
 import math
 
@@ -39,6 +37,7 @@ def _split_identifier(
         return None
     return lst
 
+
 def _fix_graph(g):  # pretty print by Egor Bogomolov
     g['token-sequence'] = [f"{ind}_{g['nodes'][ind]}" for ind in g['token-sequence']]
     g['edges'] = {
@@ -50,14 +49,15 @@ def _fix_graph(g):  # pretty print by Egor Bogomolov
     }
     return g
 
-def _parse_occurences(occur_dict):
+
+def _parse_occurrences(occur_dict):
     definitions_list = []
     for key, value in occur_dict.items():
         curr_identifier = _split_identifier(key)
         for item in value:
             curr_identifier = _split_identifier(item)
             curr_identifier[0] -= 1  # to match the standard notation of the variables
-            if (curr_identifier not in definitions_list):
+            if curr_identifier not in definitions_list:
                 definitions_list.append(curr_identifier)
 
     definitions_list.sort(key=lambda x: x[0])
@@ -72,6 +72,8 @@ def _parse_occurences(occur_dict):
 
 def _find_node(G, id):  # to find a node in the graph by the corresponding variable id (same to location)
     for node in list(G.nodes):
+        if node not in G.nodes:
+            return None
         if G.nodes[node]['id'] == id:
             return node
     return None
@@ -93,7 +95,7 @@ def _find_matching_variable(variables_dict,
     # we wanna parse, to which variable do we refer now
     lookup = _split_identifier(thekey)
     match_var = [0, '']
-    for key, value in variables_dict.items():
+    for key, _ in variables_dict.items():
         checked = _split_identifier(key)
         if (lookup[1] == checked[1]) and (lookup[0] >= checked[0]) and (match_var[0] < checked[0]):
             match_var = checked
@@ -146,8 +148,8 @@ def dfg_match(reference, candidate, lattice):  # dfg part of the metric
         return -1
     if (('NEXT_USE' not in cand_parsed['edges']) or ('OCCURRENCE_OF' not in cand_parsed['edges'])):
         return 0
-    ref_variables = _parse_occurences(ref_parsed['edges']['OCCURRENCE_OF'])
-    cand_variables = _parse_occurences(cand_parsed['edges']['OCCURRENCE_OF'])
+    ref_variables = _parse_occurrences(ref_parsed['edges']['OCCURRENCE_OF'])
+    cand_variables = _parse_occurrences(cand_parsed['edges']['OCCURRENCE_OF'])
     ref_G = _create_graph(ref_parsed['edges']['NEXT_USE'], ref_variables, ref_parsed['edges']['OCCURRENCE_OF'])
     cand_G = _create_graph(cand_parsed['edges']['NEXT_USE'], cand_variables, cand_parsed['edges']['OCCURRENCE_OF'])
     if len(ref_G.edges) == 0:
@@ -228,6 +230,7 @@ def _token_overlap(dict_ref, dict_can):  # computing token overlap
 
 
 def tokenize_builtin(code: str) -> List[str]:  # function by Egor Bogomolov
+    # why do we need it? Seems to miss things like \n and tokenize_tranx is still around
     try:
         tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
         tokens = [token.string for token in tokens]
@@ -285,7 +288,9 @@ def weighted_bleu(reference, candidate):  # the wighted bleu part of the metric
     return matches * bp / possible_matches
 
 
-def codebleu(reference, candidate, weights=[0.1, 0.1, 0.4, 0.4]):
+def codebleu(reference, candidate, weights=None):
+    if weights is None:
+        weights = [0.1, 0.1, 0.4, 0.4]
     parser = Parser()
     PY_LANGUAGE = Language('codebleu/my-languages.so', 'python')
     parser.set_language(PY_LANGUAGE)
