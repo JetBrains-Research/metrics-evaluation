@@ -235,7 +235,7 @@ def tokenize_builtin(code: str) -> List[str]:  # function by Egor Bogomolov
         tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
         tokens = [token.string for token in tokens]
         return tokens
-    except tokenize.TokenError:
+    except (tokenize.TokenError, IndentationError):
         return tokenize_tranx(code)
 
 
