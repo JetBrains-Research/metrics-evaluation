@@ -8,7 +8,7 @@ from networkx.algorithms.similarity import optimize_graph_edit_distance
 from ruby.util import get_ast_node_label, get_ast_children
 
 
-def convert_ast_to_graph(root: Union[str, ast.AST,]) -> nx.DiGraph:
+def convert_ast_to_graph(root: Union[str, ast.AST, ]) -> nx.DiGraph:
     g = nx.DiGraph()
     nodes = []
     edges = []
@@ -56,7 +56,6 @@ def convert_dict_to_graph(dict_g: Dict) -> nx.DiGraph:
 
 def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_cost: bool = False) \
         -> Tuple[float, float]:
-
     ged_generator = optimize_graph_edit_distance(
         sample_graph, reference_graph,
         node_match=lambda v, u: v['label'] == u['label'], edge_match=lambda e1, e2: e1['label'] == e2['label'],
@@ -69,7 +68,7 @@ def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_
 
     while True:
         try:
-            new_ged = func_timeout(0.1, next, args=(ged_generator,))
+            new_ged = func_timeout(1.5, next, args=(ged_generator,))
             ged = new_ged
         except (FunctionTimedOut, StopIteration):
             break

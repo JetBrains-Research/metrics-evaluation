@@ -10,7 +10,7 @@ from graph_generator.type_lattice_generator import TypeLatticeGenerator
 from tree_sitter import Language, Parser
 
 
-class TestGraphGenerator(unittest.TestCase):
+class TestCodebleuMetric(unittest.TestCase):
     # ---- DFG part ----
     parser = Parser()
     PY_LANGUAGE = Language('codebleu/my-languages.so', 'python')
@@ -115,9 +115,6 @@ class TestGraphGenerator(unittest.TestCase):
         self.assertEqual(G.nodes[1]['data'], 'var_0')
         self.assertEqual(G.nodes[0]['id'], 3)
 
-    def test_codebleu(self):
-        self.assertEqual(cbl.codebleu("[1,2,3].sort()", "[1,2,3].sort()"), 1.0)
-
     # ---- AST part ----
     def test_compare_ast(self):
         samp1 = self.parser.parse(bytes("i = i + 1", 'utf8')).root_node
@@ -175,6 +172,8 @@ class TestGraphGenerator(unittest.TestCase):
         data_hearth = json.load(open('./to-grade/hs.json'))[:-1]
         self.compute_on_dataset(data_conala, conala_fields)
         self.compute_on_dataset(data_hearth, hs_fields)
+
+
 
 
 if __name__ == '__main__':
