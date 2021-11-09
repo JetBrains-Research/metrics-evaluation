@@ -76,7 +76,7 @@ If you do not wish to participate in the research study, please decline particip
 	return pers_data
 
 @click.command()
-@click.option('--filename', default='./to-grade/all-singles.json', help='JSON dataset of code snippets to be rated')
+@click.option('--filename', default='./to-grade/all-singles-prelabeled.json', help='JSON dataset of code snippets to be rated')
 
 def loadprint(filename):
 	try:
