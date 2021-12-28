@@ -11,9 +11,8 @@ from pygments.formatters.terminal import TerminalFormatter
 def hl(snippet):
     return highlight(snippet, PythonLexer(), TerminalFormatter())
 
-gauge = (1, 5, 49, 70, 91, 93, 97, 110, 114, 127, 136, 151, 171, 194, 202, 213, 219, 226, 227, 236, 241, 255, 257, 294, 295, 317, 356, 365, 374, 395, 405, 411, 416, 426, 434, 445, 457, 459, 464, 466)
 # gauge is the list of 40 intents with 40*5 = 200 snippets to be graded by all our graders. These will allow to compare the graders and yield better estimate for the other grades
-names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
+names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet', 'codex')
 
 def get_exp():
 	while True:
@@ -85,11 +84,8 @@ def loadprint(filename):
 	except:
 		with open(filename) as f:
 			dat = json.load(f)
-	mylist = [(x, y) for x in gauge for y in range(5)]
-	testlist = [(x, y) for x in range(len(dat)-1) if x not in gauge for y in range(5)]
-	random.shuffle(testlist)
+	mylist = [(x, y) for x in range(500) for y in range(6)]
 	random.shuffle(mylist)
-	mylist.extend(testlist)
 	cnt = 0
 	pers_data = dat[-1]
 	if ((pers_data["contact"] == "") or (pers_data["experience"] == "") or (pers_data["consent"] == "")):
