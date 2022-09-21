@@ -6,9 +6,10 @@ To participate in the CoNaLa data labeling, please follow these steps:
 * Clone the repository: `git clone https://github.com/JetBrains-Research/metrics-evaluation.git`
 * (optional) Set up a virtual environment: `virtualenv venv && source venv/bin/activate` 
 * Install required packages: `pip install -r requirements.txt`
-* Run `python rate.py --filename to-grade/all-singles.json`. **NB:** Please run the labeling script with Python, and not from your IDE, as the latter way may not work
+* Run `python rate.py`. **NB:** Please run the labeling script with Python, and not from your IDE, as the latter way may not work
+* When you start grading, please check that the last line says `You have graded 1945 snippets so far`. You'll have to grade 555 snippets.
 * Follow the instructions in CLI!
-* When you are finished, send us your `to-grade/all-singles.json` or `to-grade/all-singles.tmp.json` file.
+* When you are finished, send us your `to-grade/all-singles-prelabeled.json` or `to-grade/all-singles-prelabeled.tmp.json` file.
 * The first 200 snippets are similar for all graders, and are also going to be used for comparing the grading styles. 
 
 ## Labeling the Hearthstone data
