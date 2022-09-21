@@ -11,9 +11,7 @@ from pygments.formatters.terminal import TerminalFormatter
 def hl(snippet):
     return highlight(snippet, PythonLexer(), TerminalFormatter())
 
-gauge = (1, 5, 49, 70, 91, 93, 97, 110, 114, 127, 136, 151, 171, 194, 202, 213, 219, 226, 227, 236, 241, 255, 257, 294, 295, 317, 356, 365, 374, 395, 405, 411, 416, 426, 434, 445, 457, 459, 464, 466)
-# gauge is the list of 40 intents with 40*5 = 200 snippets to be graded by all our graders. These will allow to compare the graders and yield better estimate for the other grades
-names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
+names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet', 'codex')
 
 def get_exp():
 	while True:
@@ -48,8 +46,7 @@ def get_consent():
 
 def consent():
 	print('''Dear participant,\n
-this program is a survey on quality of the code snippets conducted by Independent non-profit organization of additional professional education 
-“Research and Education Center “JetBrains”, OGRN 1187800000134, located at St. Petersburg, Kantemirovskaya street 2, liter A, office 201. 
+this program is a survey on quality of the code snippets. 
 You will be presented with code snippets (one at a time) and a problem they are supposed to solve. You are asked to evaluate 
 whether the suggested snippet is helpful or not helpful in solving the problem on a scale from 0 to 4, 
 where 0 corresponds to a totally irrelevant snippet and 4 corresponds to a snippet which solves the problem 
@@ -85,11 +82,7 @@ def loadprint(filename):
 	except:
 		with open(filename) as f:
 			dat = json.load(f)
-	mylist = [(x, y) for x in gauge for y in range(5)]
-	testlist = [(x, y) for x in range(len(dat)-1) if x not in gauge for y in range(5)]
-	random.shuffle(testlist)
-	random.shuffle(mylist)
-	mylist.extend(testlist)
+	mylist = [(x, y) for x in range(len(dat)-1) for y in range(6)]
 	cnt = 0
 	pers_data = dat[-1]
 	if ((pers_data["contact"] == "") or (pers_data["experience"] == "") or (pers_data["consent"] == "")):

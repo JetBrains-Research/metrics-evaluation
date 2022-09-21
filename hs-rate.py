@@ -64,8 +64,7 @@ image_viewer_column = [
 # ----- Full layout -----
 
 layout_form = [[sg.Text('''Dear participant,\n
-this program is a survey on quality of the code snippets conducted by Independent non-profit organization of additional professional education 
-“Research and Education Center “JetBrains”, OGRN 1187800000134, located at St. Petersburg, Kantemirovskaya street 2, liter A, office 201. 
+this program is a survey on quality of the code snippets. 
 You will be presented with code snippets (one at a time) and a problem they are supposed to solve. You are asked to evaluate whether 
 the suggested snippet is helpful or not helpful in solving the problem on a scale from 0 to 4, where 0 corresponds to a totally irrelevant snippet 
 and 4 corresponds to a snippet which solves the problem (more detailed instruction will be present at the snippet grading screen).\n
