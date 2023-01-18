@@ -1,17 +1,26 @@
 from typing import Optional
 
-from codebleu.graph_generator.typeparsing.nodes import parse_type_annotation_node, TypeAnnotationNode, SubscriptAnnotationNode, \
-    IndexAnnotationNode, ElipsisAnnotationNode, TupleAnnotationNode
+from codebleu.graph_generator.typeparsing.nodes import (
+    parse_type_annotation_node,
+    TypeAnnotationNode,
+    SubscriptAnnotationNode,
+    IndexAnnotationNode,
+    ElipsisAnnotationNode,
+    TupleAnnotationNode,
+)
 from codebleu.graph_generator.typeparsing.rewriterules import RewriteRule
 
-__all__ = ['RemoveUnionWithAnys']
+__all__ = ["RemoveUnionWithAnys"]
+
 
 class RemoveUnionWithAnys(RewriteRule):
 
-    UNION_NODE = parse_type_annotation_node('typing.Union')
-    ANY_NODE = parse_type_annotation_node('typing.Any')
+    UNION_NODE = parse_type_annotation_node("typing.Union")
+    ANY_NODE = parse_type_annotation_node("typing.Any")
 
-    def matches(self, node: TypeAnnotationNode, parent: Optional[TypeAnnotationNode]) -> bool:
+    def matches(
+        self, node: TypeAnnotationNode, parent: Optional[TypeAnnotationNode]
+    ) -> bool:
         if not isinstance(node, SubscriptAnnotationNode):
             return False
         if node.value != self.UNION_NODE:

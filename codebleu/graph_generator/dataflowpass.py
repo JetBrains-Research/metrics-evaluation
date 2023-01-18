@@ -4,11 +4,46 @@ from symtable import SymbolTable
 from typing import Any, Dict, Optional, Set, Union, List
 
 
-from typed_ast.ast3 import Mod, Compare, Lambda, arg, Global, Nonlocal, arguments, Name, comprehension, \
-    withitem, Assign, AnnAssign, AugAssign, FormattedValue, Attribute, dump
-from typed_ast.ast3 import NodeVisitor, AST, FunctionDef, AsyncFunctionDef, Return, Subscript, \
-    Starred, Delete, Break, Continue, If, For, AsyncFor, While, Try, Assert, With, AsyncWith, Raise, \
-    IfExp
+from typed_ast.ast3 import (
+    Mod,
+    Compare,
+    Lambda,
+    arg,
+    Global,
+    Nonlocal,
+    arguments,
+    Name,
+    comprehension,
+    withitem,
+    Assign,
+    AnnAssign,
+    AugAssign,
+    FormattedValue,
+    Attribute,
+    dump,
+)
+from typed_ast.ast3 import (
+    NodeVisitor,
+    AST,
+    FunctionDef,
+    AsyncFunctionDef,
+    Return,
+    Subscript,
+    Starred,
+    Delete,
+    Break,
+    Continue,
+    If,
+    For,
+    AsyncFor,
+    While,
+    Try,
+    Assert,
+    With,
+    AsyncWith,
+    Raise,
+    IfExp,
+)
 
 from .graphgenutils import EdgeType
 
@@ -34,7 +69,9 @@ class DataflowPass(NodeVisitor):
         else:
             # We need to find the relevant node in the graph
             assert parent_node is not None
-            candidate_children = self.__graph_generator._get_edge_targets(parent_node, EdgeType.CHILD)
+            candidate_children = self.__graph_generator._get_edge_targets(
+                parent_node, EdgeType.CHILD
+            )
             for child in candidate_children:
                 if str(child) == name:
                     node = child
@@ -43,13 +80,14 @@ class DataflowPass(NodeVisitor):
                 assert False
 
         # Find relevant symbol (OCCURRENCE_OF)
-        candidate_symbols = self.__graph_generator._get_edge_targets(node, EdgeType.OCCURRENCE_OF)
+        candidate_symbols = self.__graph_generator._get_edge_targets(
+            node, EdgeType.OCCURRENCE_OF
+        )
         if len(candidate_symbols) == 0:
             return
         assert len(candidate_symbols) == 1
         symbol = next(iter(candidate_symbols))
         self.__record_next_use(symbol, node)
-
 
     def visit_Name(self, node: Name):
         self.__visit_variable_like(node.id, node)
@@ -60,10 +98,13 @@ class DataflowPass(NodeVisitor):
 
     def visit_FunctionDef(self, node: FunctionDef) -> None:
         self.__visit_function(node, is_async=False)
-    def visit_AsyncFunctionDef(self, node: AsyncFunctionDef)-> None:
+
+    def visit_AsyncFunctionDef(self, node: AsyncFunctionDef) -> None:
         self.__visit_function(node, is_async=True)
 
-    def __visit_function(self, node: Union[FunctionDef, AsyncFunctionDef], is_async: bool):
+    def __visit_function(
+        self, node: Union[FunctionDef, AsyncFunctionDef], is_async: bool
+    ):
         outer_return_uses = self.__return_uses
         self.__return_uses = defaultdict(set)
 
@@ -88,7 +129,9 @@ class DataflowPass(NodeVisitor):
             self.__graph_generator._add_edge(last_node_used, node, EdgeType.NEXT_USE)
         self.__last_use[symbol] = {node}
 
-    def __merge_uses(self, use_set1: Dict[Any, Set[Any]], use_set2: Dict[Any, Set[Any]]) -> Dict[Any, Set[Any]]:
+    def __merge_uses(
+        self, use_set1: Dict[Any, Set[Any]], use_set2: Dict[Any, Set[Any]]
+    ) -> Dict[Any, Set[Any]]:
         merged = defaultdict(set)
         for symbol, last_used_nodes in chain(use_set1.items(), use_set2.items()):
             merged[symbol] |= last_used_nodes
@@ -100,13 +143,31 @@ class DataflowPass(NodeVisitor):
             cloned[symbol] = set(last_used_nodes)
         return cloned
 
-    def __loop_back_after(self, last_uses_at_end_of_loop: Dict[Any, Set[Any]], last_uses_just_before_looping_point: Dict[Any, Set[Any]]) -> None:
-        for symbol, last_use_before_looping_point in last_uses_just_before_looping_point.items():
-            first_use_after_looping_point = set(chain(*(self.__graph_generator._get_edge_targets(node, EdgeType.NEXT_USE) for node in last_use_before_looping_point)))
+    def __loop_back_after(
+        self,
+        last_uses_at_end_of_loop: Dict[Any, Set[Any]],
+        last_uses_just_before_looping_point: Dict[Any, Set[Any]],
+    ) -> None:
+        for (
+            symbol,
+            last_use_before_looping_point,
+        ) in last_uses_just_before_looping_point.items():
+            first_use_after_looping_point = set(
+                chain(
+                    *(
+                        self.__graph_generator._get_edge_targets(
+                            node, EdgeType.NEXT_USE
+                        )
+                        for node in last_use_before_looping_point
+                    )
+                )
+            )
 
             for from_node in last_uses_at_end_of_loop[symbol]:
                 for to_node in first_use_after_looping_point:
-                    self.__graph_generator._add_edge(from_node, to_node, EdgeType.NEXT_USE)
+                    self.__graph_generator._add_edge(
+                        from_node, to_node, EdgeType.NEXT_USE
+                    )
 
     def visit_Break(self, node: Break):
         self.__break_uses = self.__merge_uses(self.__break_uses, self.__last_use)
@@ -118,6 +179,7 @@ class DataflowPass(NodeVisitor):
 
     def visit_For(self, node: For):
         self.__visit_for(node, False)
+
     def visit_AsyncFor(self, node: AsyncFor):
         self.__visit_for(node, True)
 
@@ -129,18 +191,25 @@ class DataflowPass(NodeVisitor):
 
         self.visit(node.target)
         self.__visit_statement_block(node.body)
-        self.__loop_back_after(self.__merge_uses(self.__last_use, self.__continue_uses), last_use_before_loop)
-        self.__last_use = self.__merge_uses(self.__last_use, self.__merge_uses(last_use_before_loop, self.__continue_uses))
+        self.__loop_back_after(
+            self.__merge_uses(self.__last_use, self.__continue_uses),
+            last_use_before_loop,
+        )
+        self.__last_use = self.__merge_uses(
+            self.__last_use,
+            self.__merge_uses(last_use_before_loop, self.__continue_uses),
+        )
 
         if node.orelse is not None:
             last_use_after_loop = self.__clone_last_uses()
             self.__visit_statement_block(node.orelse)
             self.__last_use = self.__merge_uses(self.__last_use, last_use_after_loop)
 
-        self.__last_use = self.__merge_uses(self.__last_use, self.__break_uses)  # Break doesn't go through the else
+        self.__last_use = self.__merge_uses(
+            self.__last_use, self.__break_uses
+        )  # Break doesn't go through the else
 
         self.__break_uses, self.__continue_uses = outer_break, outer_continue
-
 
     def visit_If(self, node: If):
         self.visit(node.test)
@@ -192,10 +261,11 @@ class DataflowPass(NodeVisitor):
         after_exec_handlers = self.__clone_last_uses()
         for i, exc_handler in enumerate(node.handlers):
             self.visit(exc_handler)
-            after_exec_handlers = self.__merge_uses(after_exec_handlers, self.__last_use)
+            after_exec_handlers = self.__merge_uses(
+                after_exec_handlers, self.__last_use
+            )
             self.__last_use = before_exec_handlers
             before_exec_handlers = self.__clone_last_uses()
-
 
         if node.orelse:
             before_uses = self.__clone_last_uses()
@@ -219,9 +289,15 @@ class DataflowPass(NodeVisitor):
         outer_break, outer_continue = self.__break_uses, self.__continue_uses
 
         self.__visit_statement_block(node.body)
-        self.__loop_back_after(self.__merge_uses(self.__last_use, self.__continue_uses), last_use_before_loop)
+        self.__loop_back_after(
+            self.__merge_uses(self.__last_use, self.__continue_uses),
+            last_use_before_loop,
+        )
 
-        self.__last_use = self.__merge_uses(self.__last_use, self.__merge_uses(last_use_after_loop_test, self.__continue_uses))
+        self.__last_use = self.__merge_uses(
+            self.__last_use,
+            self.__merge_uses(last_use_after_loop_test, self.__continue_uses),
+        )
         if node.orelse is not None:
             last_use_before_branch = self.__clone_last_uses()
             self.__visit_statement_block(node.orelse)
@@ -246,6 +322,7 @@ class DataflowPass(NodeVisitor):
         self.visit(node.context_expr)
         if node.optional_vars is not None:
             self.visit(node.optional_vars)
+
     # endregion
 
     def visit_ClassDef(self, node):
@@ -312,7 +389,9 @@ class DataflowPass(NodeVisitor):
             self.visit(node.kwarg)
 
         if len(node.kwonlyargs) > 0:
-            defaults = [None] * (len(node.kwonlyargs) - len(node.kw_defaults)) + node.kw_defaults
+            defaults = [None] * (
+                len(node.kwonlyargs) - len(node.kw_defaults)
+            ) + node.kw_defaults
             for argument, default in zip(node.kwonlyargs, defaults):
                 self.visit(argument)
                 if default is not None:
@@ -321,7 +400,7 @@ class DataflowPass(NodeVisitor):
     def visit_keyword(self, node):
         self.visit(node.value)
 
-    #region Comprehensions
+    # region Comprehensions
     def visit_comprehension(self, node: comprehension):
         self.visit(node.iter)
 
@@ -354,7 +433,7 @@ class DataflowPass(NodeVisitor):
         for generator in node.generators:
             self.visit(generator)
 
-    #endregion
+    # endregion
 
     def visit_Attribute(self, node: Attribute):
         self.__visit_variable_like(node, None)
@@ -434,8 +513,5 @@ class DataflowPass(NodeVisitor):
     def __sequence_datastruct_visit(self, node):
         for idx, element in enumerate(node.elts):
             self.visit(element)
+
     # endregion
-
-
-
-

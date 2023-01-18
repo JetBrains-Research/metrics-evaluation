@@ -1,6 +1,14 @@
 # Evaluation of metrics for code generation
 This repository will contain code to run the existing approaches to code generation on multiple datasets.
 
+## Setup
+
+We use poetry to manage the environment and library versions. You can find the installation manual [here](https://python-poetry.org/docs/).
+
+To run grading scripts you will also need to install `tkinter`. 
+For linux users: `sudo apt-get install python3-tk`. 
+For Mac users: `brew install python-tk@3.9`
+
 ## Labeling the CoNaLa data
 To participate in the CoNaLa data labeling, please follow these steps:
 * Clone the repository: `git clone https://github.com/JetBrains-Research/metrics-evaluation.git`

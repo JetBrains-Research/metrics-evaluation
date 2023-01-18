@@ -2,17 +2,29 @@ from itertools import product
 from typing import Callable, Iterator, Set
 import random
 
-from codebleu.graph_generator.typeparsing.nodes import TypeAnnotationNode, SubscriptAnnotationNode, TupleAnnotationNode, \
-    ListAnnotationNode, AttributeAnnotationNode, IndexAnnotationNode, ElipsisAnnotationNode
+from codebleu.graph_generator.typeparsing.nodes import (
+    TypeAnnotationNode,
+    SubscriptAnnotationNode,
+    TupleAnnotationNode,
+    ListAnnotationNode,
+    AttributeAnnotationNode,
+    IndexAnnotationNode,
+    ElipsisAnnotationNode,
+)
 from codebleu.graph_generator.typeparsing.visitor import TypeAnnotationVisitor
 
-__all__ = ['DirectInheritanceRewriting']
+__all__ = ["DirectInheritanceRewriting"]
+
 
 class DirectInheritanceRewriting(TypeAnnotationVisitor):
     """Replace Nodes their direct is-a relationships"""
 
-    def __init__(self, is_a_info: Callable[[TypeAnnotationNode], Iterator[TypeAnnotationNode]],
-                       non_generic_types: Set[TypeAnnotationNode], limit_combinations_to: int=10000):
+    def __init__(
+        self,
+        is_a_info: Callable[[TypeAnnotationNode], Iterator[TypeAnnotationNode]],
+        non_generic_types: Set[TypeAnnotationNode],
+        limit_combinations_to: int = 10000,
+    ):
         self.__is_a = is_a_info
         self.__non_generic_types = non_generic_types
         self.__limit_combinations_to = limit_combinations_to
@@ -40,7 +52,7 @@ class DirectInheritanceRewriting(TypeAnnotationVisitor):
 
         if len(r) > self.__limit_combinations_to:
             random.shuffle(r)
-            return r[:self.__limit_combinations_to]
+            return r[: self.__limit_combinations_to]
         return r
 
     def visit_name_annotation(self, node):
@@ -51,7 +63,7 @@ class DirectInheritanceRewriting(TypeAnnotationVisitor):
         r = [ListAnnotationNode(t) for t in product(*all_elements_options)]
         if len(r) > self.__limit_combinations_to:
             random.shuffle(r)
-            return r[:self.__limit_combinations_to]
+            return r[: self.__limit_combinations_to]
         return r
 
     def visit_attribute_annotation(self, node: AttributeAnnotationNode):

@@ -1,16 +1,25 @@
 from typing import Optional
 
-from codebleu.graph_generator.typeparsing.nodes import parse_type_annotation_node, TypeAnnotationNode, SubscriptAnnotationNode, \
-    IndexAnnotationNode, ElipsisAnnotationNode, TupleAnnotationNode
+from codebleu.graph_generator.typeparsing.nodes import (
+    parse_type_annotation_node,
+    TypeAnnotationNode,
+    SubscriptAnnotationNode,
+    IndexAnnotationNode,
+    ElipsisAnnotationNode,
+    TupleAnnotationNode,
+)
 from codebleu.graph_generator.typeparsing.rewriterules import RewriteRule
 
-__all__ = ['RemoveGenericWithAnys']
+__all__ = ["RemoveGenericWithAnys"]
+
 
 class RemoveGenericWithAnys(RewriteRule):
 
-    ANY_NODE = parse_type_annotation_node('typing.Any')
+    ANY_NODE = parse_type_annotation_node("typing.Any")
 
-    def matches(self, node: TypeAnnotationNode, parent: Optional[TypeAnnotationNode]) -> bool:
+    def matches(
+        self, node: TypeAnnotationNode, parent: Optional[TypeAnnotationNode]
+    ) -> bool:
         if not isinstance(node, SubscriptAnnotationNode):
             return False
 
@@ -20,7 +29,10 @@ class RemoveGenericWithAnys(RewriteRule):
         if isinstance(slice, ElipsisAnnotationNode):
             return True
         if isinstance(slice, TupleAnnotationNode):
-            return all(s == self.ANY_NODE or isinstance(s, ElipsisAnnotationNode) for s in slice.elements)
+            return all(
+                s == self.ANY_NODE or isinstance(s, ElipsisAnnotationNode)
+                for s in slice.elements
+            )
 
         return False
 

@@ -11,7 +11,7 @@ from codebleu.graph_generator.type_lattice_generator import TypeLatticeGenerator
 
 def tokenize_builtin(code: str) -> List[str]:
     try:
-        tokens = list(tokenize.tokenize(BytesIO(code.encode('utf-8')).readline))[1:-1]
+        tokens = list(tokenize.tokenize(BytesIO(code.encode("utf-8")).readline))[1:-1]
         tokens = [token.string for token in tokens]
         return tokens
     except tokenize.TokenError:
@@ -19,18 +19,18 @@ def tokenize_builtin(code: str) -> List[str]:
 
 
 def tokenize_tranx(code: str) -> List[str]:
-    """ The tokenizer taken from https://github.com/pcyin/tranX
-        Originally from Wang Ling et al.,
-        Latent Predictor Networks for Code Generation (2016)
-        @param code: string containing a code snippet
-        @return: list of code tokens
+    """The tokenizer taken from https://github.com/pcyin/tranX
+    Originally from Wang Ling et al.,
+    Latent Predictor Networks for Code Generation (2016)
+    @param code: string containing a code snippet
+    @return: list of code tokens
     """
-    code = re.sub(r'([^A-Za-z0-9_])', r' \1 ', code)
-    code = re.sub(r'([a-z])([A-Z])', r'\1 \2', code)
-    code = re.sub(r'\s+', ' ', code)
-    code = code.replace('"', '`')
-    code = code.replace('\'', '`')
-    tokens = [t for t in code.split(' ') if t]
+    code = re.sub(r"([^A-Za-z0-9_])", r" \1 ", code)
+    code = re.sub(r"([a-z])([A-Z])", r"\1 \2", code)
+    code = re.sub(r"\s+", " ", code)
+    code = code.replace('"', "`")
+    code = code.replace("'", "`")
+    tokens = [t for t in code.split(" ") if t]
 
     return tokens
 
@@ -44,7 +44,7 @@ def create_ast(code: str) -> Optional[ast.AST]:
 
 def create_graph(code: str) -> Optional[Dict]:
     try:
-        lattice = TypeLatticeGenerator('codebleu/typingRules.json')
+        lattice = TypeLatticeGenerator("codebleu/typingRules.json")
         generator = AstGraphGenerator(code, lattice)
         graph = generator.build()
         return graph
@@ -61,11 +61,7 @@ def get_ast_children(node: Union[Any, ast.AST]) -> List[Union[Any, ast.AST]]:
             return node_field
         return [node_field]
 
-    children = [
-        child
-        for field in node._fields
-        for child in wrap(getattr(node, field))
-    ]
+    children = [child for field in node._fields for child in wrap(getattr(node, field))]
     return children
 
 
@@ -77,8 +73,8 @@ def get_ast_node_label(node: Union[Any, ast.AST]) -> str:
 
 def ast_labels_distance(label1: str, label2: str) -> float:
     if label1 == label2:
-        return 0.
-    return 1.
+        return 0.0
+    return 1.0
 
 
 def get_ast_size(node: Union[str, ast.AST]) -> int:

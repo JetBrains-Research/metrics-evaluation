@@ -7,16 +7,28 @@ from typed_ast.ast3 import parse
 
 from codebleu.graph_generator.typeparsing.visitor import TypeAnnotationVisitor
 
-__all__ = ['FaultyAnnotation', 'TypeAnnotationNode', 'SubscriptAnnotationNode', 'TupleAnnotationNode',
-           'NameAnnotationNode', 'ListAnnotationNode', 'AttributeAnnotationNode', 'IndexAnnotationNode',
-           'ElipsisAnnotationNode', 'NameConstantAnnotationNode', 'UnknownAnnotationNode',
-           'parse_type_annotation_node', 'parse_type_comment']
+__all__ = [
+    "FaultyAnnotation",
+    "TypeAnnotationNode",
+    "SubscriptAnnotationNode",
+    "TupleAnnotationNode",
+    "NameAnnotationNode",
+    "ListAnnotationNode",
+    "AttributeAnnotationNode",
+    "IndexAnnotationNode",
+    "ElipsisAnnotationNode",
+    "NameConstantAnnotationNode",
+    "UnknownAnnotationNode",
+    "parse_type_annotation_node",
+    "parse_type_comment",
+]
+
 
 class FaultyAnnotation(Exception):
     pass
 
-class TypeAnnotationNode(ABC):
 
+class TypeAnnotationNode(ABC):
     @abstractmethod
     def size(self) -> int:
         pass
@@ -31,7 +43,7 @@ class TypeAnnotationNode(ABC):
 
     @staticmethod
     @abstractmethod
-    def parse(node) -> 'SubscriptAnnotationNode':
+    def parse(node) -> "SubscriptAnnotationNode":
         pass
 
 
@@ -50,7 +62,7 @@ class SubscriptAnnotationNode(TypeAnnotationNode):
         return visitor.visit_subscript_annotation(self, *args)
 
     def __repr__(self):
-        return repr(self.value) + '[' + repr(self.slice) + ']'
+        return repr(self.value) + "[" + repr(self.slice) + "]"
 
     def __hash__(self):
         return hash(self.value) ^ (hash(self.slice) + 13)
@@ -62,9 +74,9 @@ class SubscriptAnnotationNode(TypeAnnotationNode):
             return self.value == other.value and self.slice == other.slice
 
     @staticmethod
-    def parse(node) -> 'SubscriptAnnotationNode':
-        assert hasattr(node, 'value')
-        assert hasattr(node, 'slice')
+    def parse(node) -> "SubscriptAnnotationNode":
+        assert hasattr(node, "value")
+        assert hasattr(node, "slice")
 
         v = _parse_recursive(node.value)
         s = _parse_recursive(node.slice)
@@ -83,7 +95,7 @@ class TupleAnnotationNode(TypeAnnotationNode):
         return visitor.visit_tuple_annotation(self, *args)
 
     def __repr__(self):
-        return ', '.join(repr(e) for e in self.elements)
+        return ", ".join(repr(e) for e in self.elements)
 
     def __hash__(self):
         if len(self.elements) > 0:
@@ -98,8 +110,8 @@ class TupleAnnotationNode(TypeAnnotationNode):
             return self.elements == other.elements
 
     @staticmethod
-    def parse(node) -> 'TupleAnnotationNode':
-        assert hasattr(node, 'elts')
+    def parse(node) -> "TupleAnnotationNode":
+        assert hasattr(node, "elts")
         return TupleAnnotationNode((_parse_recursive(el) for el in node.elts))
 
 
@@ -108,9 +120,9 @@ class NameAnnotationNode(TypeAnnotationNode):
         self.identifier = identifier
 
     def size(self) -> int:
-       return 1
+        return 1
 
-    def accept_visitor(self, visitor: TypeAnnotationVisitor, *args)  -> Any:
+    def accept_visitor(self, visitor: TypeAnnotationVisitor, *args) -> Any:
         return visitor.visit_name_annotation(self, *args)
 
     def __repr__(self):
@@ -125,8 +137,8 @@ class NameAnnotationNode(TypeAnnotationNode):
         return self.identifier == other.identifier
 
     @staticmethod
-    def parse(node) -> 'NameAnnotationNode':
-        assert hasattr(node, 'id')
+    def parse(node) -> "NameAnnotationNode":
+        assert hasattr(node, "id")
         return NameAnnotationNode(node.id)
 
 
@@ -141,7 +153,7 @@ class ListAnnotationNode(TypeAnnotationNode):
         return visitor.visit_list_annotation(self, *args)
 
     def __repr__(self):
-        return '[' + ', '.join(repr(e) for e in self.elements) + ']'
+        return "[" + ", ".join(repr(e) for e in self.elements) + "]"
 
     def __hash__(self):
         if len(self.elements) > 0:
@@ -155,8 +167,8 @@ class ListAnnotationNode(TypeAnnotationNode):
         return self.elements == other.elements
 
     @staticmethod
-    def parse(node) -> 'ListAnnotationNode':
-        assert hasattr(node, 'elts')
+    def parse(node) -> "ListAnnotationNode":
+        assert hasattr(node, "elts")
         return ListAnnotationNode((_parse_recursive(el) for el in node.elts))
 
 
@@ -173,7 +185,7 @@ class AttributeAnnotationNode(TypeAnnotationNode):
         return visitor.visit_attribute_annotation(self, *args)
 
     def __repr__(self):
-        return repr(self.value) + '.' + self.attribute
+        return repr(self.value) + "." + self.attribute
 
     def __hash__(self):
         return hash(self.attribute) ^ (hash(self.value) + 13)
@@ -185,9 +197,9 @@ class AttributeAnnotationNode(TypeAnnotationNode):
             return self.attribute == other.attribute and self.value == other.value
 
     @staticmethod
-    def parse(node) -> 'AttributeAnnotationNode':
-        assert hasattr(node, 'value')
-        assert hasattr(node, 'attr')
+    def parse(node) -> "AttributeAnnotationNode":
+        assert hasattr(node, "value")
+        assert hasattr(node, "attr")
         return AttributeAnnotationNode(_parse_recursive(node.value), node.attr)
 
 
@@ -213,8 +225,8 @@ class IndexAnnotationNode(TypeAnnotationNode):
         return self.value == other.value
 
     @staticmethod
-    def parse(node) -> 'IndexAnnotationNode':
-        assert hasattr(node, 'value')
+    def parse(node) -> "IndexAnnotationNode":
+        assert hasattr(node, "value")
         return IndexAnnotationNode(_parse_recursive(node.value))
 
 
@@ -229,7 +241,7 @@ class ElipsisAnnotationNode(TypeAnnotationNode):
         return visitor.visit_elipsis_annotation(self, *args)
 
     def __repr__(self):
-        return '...'
+        return "..."
 
     def __hash__(self):
         return 3
@@ -238,7 +250,7 @@ class ElipsisAnnotationNode(TypeAnnotationNode):
         return isinstance(other, ElipsisAnnotationNode)
 
     @staticmethod
-    def parse(node) -> 'ElipsisAnnotationNode':
+    def parse(node) -> "ElipsisAnnotationNode":
         return ElipsisAnnotationNode()
 
 
@@ -264,15 +276,17 @@ class NameConstantAnnotationNode(TypeAnnotationNode):
         return self.value == other.value
 
     @staticmethod
-    def parse(node) -> 'NameConstantAnnotationNode':
-        if hasattr(node, 'value'):
+    def parse(node) -> "NameConstantAnnotationNode":
+        if hasattr(node, "value"):
             return NameConstantAnnotationNode(node.value)
         return NameConstantAnnotationNode(None)
 
 
 class UnknownAnnotationNode(TypeAnnotationNode):
     def __init__(self):
-        import pdb; pdb.set_trace()
+        import pdb
+
+        pdb.set_trace()
         pass
 
     def size(self) -> int:
@@ -282,7 +296,7 @@ class UnknownAnnotationNode(TypeAnnotationNode):
         return visitor.visit_unknown_annotation(self, *args)
 
     def __repr__(self):
-        return '%UNKNOWN%'
+        return "%UNKNOWN%"
 
     def __hash__(self):
         return 4
@@ -291,42 +305,42 @@ class UnknownAnnotationNode(TypeAnnotationNode):
         return isinstance(other, UnknownAnnotationNode)
 
     @staticmethod
-    def parse(node) -> 'UnknownAnnotationNode':
+    def parse(node) -> "UnknownAnnotationNode":
         raise NotImplementedError()
 
 
 def _parse_string_annotation(node):
-    assert hasattr(node, 's')
+    assert hasattr(node, "s")
     try:
-        node = parse(node.s, '', mode='eval')
+        node = parse(node.s, "", mode="eval")
         return _parse_recursive(node.body)
     except SyntaxError:
         return None
 
 
 def _parse_recursive(node) -> TypeAnnotationNode:
-    if isinstance(node, typed_ast._ast3.Subscript):   # pytype: disable=module-attr
+    if isinstance(node, typed_ast._ast3.Subscript):  # pytype: disable=module-attr
         return SubscriptAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Tuple):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Tuple):  # pytype: disable=module-attr
         return TupleAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Name):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Name):  # pytype: disable=module-attr
         return NameAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.List):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.List):  # pytype: disable=module-attr
         return ListAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Attribute):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Attribute):  # pytype: disable=module-attr
         return AttributeAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Str):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Str):  # pytype: disable=module-attr
         return _parse_string_annotation(node)
-    elif isinstance(node, typed_ast._ast3.Index):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Index):  # pytype: disable=module-attr
         return IndexAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Ellipsis):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Ellipsis):  # pytype: disable=module-attr
         return ElipsisAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.NameConstant):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.NameConstant):  # pytype: disable=module-attr
         return NameConstantAnnotationNode.parse(node)
-    elif isinstance(node, typed_ast._ast3.Num):    # pytype: disable=module-attr
+    elif isinstance(node, typed_ast._ast3.Num):  # pytype: disable=module-attr
         return NameConstantAnnotationNode.parse(node)
     else:
-        raise Exception('Unparsable type node.')
+        raise Exception("Unparsable type node.")
 
 
 def parse_type_annotation_node(node) -> Optional[TypeAnnotationNode]:
@@ -346,7 +360,7 @@ def parse_type_annotation_node(node) -> Optional[TypeAnnotationNode]:
 
 def parse_type_comment(annotation: str) -> Optional[TypeAnnotationNode]:
     try:
-        node = parse(annotation, '', mode='eval')
+        node = parse(annotation, "", mode="eval")
     except SyntaxError:
         return None
     try:
