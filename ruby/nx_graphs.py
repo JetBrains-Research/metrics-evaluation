@@ -54,7 +54,7 @@ def convert_dict_to_graph(dict_g: Dict) -> nx.DiGraph:
     return g
 
 
-def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_cost: bool = False) \
+def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_cost: bool = True) \
         -> Tuple[float, float]:
 
     ged_generator = optimize_graph_edit_distance(
@@ -65,13 +65,24 @@ def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_
     total_size = sample_graph.number_of_nodes() + reference_graph.number_of_nodes()
     if use_edge_cost:
         total_size += sample_graph.number_of_edges() + reference_graph.number_of_edges()
-    ged = total_size
+    ged = total_size + 1
 
-    while True:
-        try:
-            new_ged = func_timeout(0.1, next, args=(ged_generator,))
-            ged = new_ged
-        except (FunctionTimedOut, StopIteration):
-            break
+#    while True:
+#        try:
+#            new_ged = func_timeout(0.1, next, args=(ged_generator,))
+#            ged = new_ged
+#        except (FunctionTimedOut, StopIteration):
+#            break
+
+    if ged > total_size:
+        while True:
+            try:
+                new_ged = func_timeout(1, next, args=(ged_generator,))
+                ged = new_ged
+            except (FunctionTimedOut, StopIteration):
+                break
+
+    if ged > total_size:    
+        return -1, -1
 
     return ged, total_size

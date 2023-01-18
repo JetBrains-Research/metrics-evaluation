@@ -31,6 +31,11 @@ def _split_identifier(identifier): #The format in which the variables are stored
 	lst[0] = int(lst[0])
 	return lst
 
+def _fix_identifier(identifier):
+	lst = identifier.split('_', 1)
+	lst[0] = int(lst[0]) - 1
+	return str(lst[0])+'_'+lst[1]	
+
 def _parse_occurences(occur_dict):
 	definitions_list = []
 	for key, value in occur_dict.items():
@@ -46,6 +51,11 @@ def _parse_occurences(occur_dict):
 	variables_dict = dict()
 	for i, item in enumerate(variables_list):
 		variables_dict[item] = 'var_' + str(i) #renaming the variables to a common standard to be name-independent
+	for key, value in occur_dict.items():
+		if len(value) > 1:
+			variables_dict[key] = [variables_dict[_fix_identifier(item)] for item in value]
+		else:
+			variables_dict[key] = variables_dict[_fix_identifier(value[0])]
 	return variables_dict
 
 def _find_node(G, id): #to find a node in the graph by the corresponding variable id (same to location)
@@ -220,8 +230,8 @@ def tokenize_tranx(code: str) -> List[str]:
 
 	return tokens
 
-def pure_bleu(reference, candidate):
-	return compute_bleu([[tokenize_builtin(reference)]], [tokenize_builtin(candidate)])[0] #for some reason we need this exact amount of brackets for compute_bleu to work; I don't fully understand why and this might be related to the issue with the wrong BLEU computation
+def pure_bleu(reference, candidate, max_order = 4, smooth=False):
+	return compute_bleu([[tokenize_builtin(reference)]], [tokenize_builtin(candidate)], max_order, smooth)[0] #for some reason we need this exact amount of brackets for compute_bleu to work; I don't fully understand why and this might be related to the issue with the wrong BLEU computation
 
 def weighted_bleu(reference, candidate): #the wighted bleu part of the metric
 	keywords = []
@@ -257,7 +267,7 @@ def codebleu(reference, candidate, weights = [0.1, 0.1, 0.4, 0.4]):
 	PY_LANGUAGE = Language('./my-languages.so', 'python')
 	parser.set_language(PY_LANGUAGE)
 	lattice = TypeLatticeGenerator('typingRules.json')
-	scores = pure_bleu(reference, candidate), weighted_bleu(reference, candidate), ast_match(reference, candidate, parser), dfg_match(reference, candidate, lattice)
+	scores = (pure_bleu(reference, candidate), weighted_bleu(reference, candidate), ast_match(reference, candidate, parser), dfg_match(reference, candidate, lattice))
 	final_score = 0.0
 	norm = 0.0
 	for i, item in enumerate(scores):

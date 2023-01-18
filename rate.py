@@ -2,7 +2,6 @@ import click
 import json
 import os
 import random
-import sys
 from pygments import highlight
 from pygments.lexers.python import PythonLexer
 from pygments.formatters.terminal import TerminalFormatter
@@ -11,70 +10,9 @@ from pygments.formatters.terminal import TerminalFormatter
 def hl(snippet):
     return highlight(snippet, PythonLexer(), TerminalFormatter())
 
-names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet', 'codex')
-
-def get_exp():
-	while True:
-		exp_str = input()
-		try:
-			experience = int(exp_str)
-			if (0 > experience) or (experience > 30): 
-				raise ValueError
-			else:
-				return experience
-		except ValueError:
-			print('Incorrect input. Please enter, for how long have you been programming in Python (in years, rounded to a nearest integer)')
-
-def get_name():
-	while True:
-		name = input()
-		if (len(name) < 1): 
-			print('Incorrect input. Please enter your Slack handle or e-mail address.')
-		else:
-			return name
-
-def get_consent():
-	while (True):
-		consent = input().lower()
-		if (consent == 'yes'):
-			return
-		elif (consent == 'no'):
-			sys.exit()
-		else:
-			print('Incorrect input. Please enter "yes", if you wish to participate in the study, and "no", if you want to decline participation')		
-
-
-def consent():
-	print('''Dear participant,\n
-this program is a survey on quality of the code snippets. 
-You will be presented with code snippets (one at a time) and a problem they are supposed to solve. You are asked to evaluate 
-whether the suggested snippet is helpful or not helpful in solving the problem on a scale from 0 to 4, 
-where 0 corresponds to a totally irrelevant snippet and 4 corresponds to a snippet which solves the problem 
-(more detailed instruction will be present at the snippet grading screen).
-In the event of any publication or presentation resulting from the research, no personally identifiable information will be shared.
-We plan to include the results of this survey in a scientific publication. If you have any concerns or questions about your rights
-as a participant or about the way the study is being conducted, please contact Mikhail Evtikhiev (mikhail.evtikhiev@jetbrains.com).''')
-	print(' ')
-	print('''Please write, for how long have you been programming in Python (in years), 
-rounded to the nearest integer number. This information will be reported in the publication in an aggregated form.''')
-	pers_data = dict()
-	pers_data["experience"] = get_exp()
-	print('''Please write your Slack handle or e-mail address. This information will be kept private and we only ask for it to be able to reach back to you 
-to clarify any technical uncertainties with the graded snippets, if such uncertainties shall arise.''')
-	pers_data["contact"] = input()
-	print('ELECTRONIC CONSENT\n')
-	print('''Please enter your choice below. Entering the “yes” option below indicates that:\n
-i) you have read and understood the above information,\n
-ii) you voluntarily agree to participate, and \n
-iii) you are at least 18 years old.\n
-If you do not wish to participate in the research study, please decline participation by entering "no"''')
-	get_consent()
-	pers_data["consent"] = 'yes'
-	return pers_data
 
 @click.command()
 @click.option('--filename', default='./to-grade/all-singles.json', help='JSON dataset of code snippets to be rated')
-
 def loadprint(filename):
 	try:
 		with open(filename[:-5]+'.tmp.json') as f:
@@ -82,17 +20,9 @@ def loadprint(filename):
 	except:
 		with open(filename) as f:
 			dat = json.load(f)
-	mylist = [(x, y) for x in range(len(dat)-1) for y in range(6)]
-	cnt = 0
-	pers_data = dat[-1]
-	if ((pers_data["contact"] == "") or (pers_data["experience"] == "") or (pers_data["consent"] == "")):
-		pers_data = consent()
-		for key in dat[-1]:
-			dat[-1][key] = pers_data[key]
-	for (i, j) in mylist:
-		sname = 'grade-' + names[j]
-		if sname in dat[i]:
-			cnt += 1
+	mylist = [(x, y) for x in range(len(dat)) for y in range(5)]
+	random.shuffle(mylist)
+	names = ('baseline', 'tranx-annot', 'best-tranx', 'best-tranx-rerank', 'snippet')
 	for (i, j) in mylist:
 		sname = 'grade-' + names[j]
 		if sname not in dat[i]:
@@ -111,9 +41,6 @@ def loadprint(filename):
 			click.echo('The snippet is:')
 			click.echo(hl(dat[i][names[j]].replace("`", "'")))
 			click.echo(' ')
-			click.echo(' ')
-			click.echo(' ')
-			click.echo('You have graded ' + str(cnt) + ' snippets so far')
 			while True:
 				c = click.getchar()
 				click.echo(c)
@@ -123,7 +50,6 @@ def loadprint(filename):
 					break
 				elif c in ['0', '1', '2', '3', '4']:
 					dat[i][sname] = int(c)
-					cnt += 1
 					with open(filename[:-5]+'.tmp.json', 'w') as o:
 						json.dump(dat, o)
 					break					

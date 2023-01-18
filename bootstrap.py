@@ -2,6 +2,13 @@ import random
 from sacrebleu_code.sacrebleu_methods.compat import corpus_bleu
 from numpy import mean
 import json
+from collections import Counter
+# Import CrystalBLEU
+from crystalbleu import corpus_bleu as crb
+from pygments.lexers.python import PythonLexer
+from ruby.util import tokenize_tranx as tknz
+import re
+from nltk.util import ngrams
 
 
 def synthesize_model(model_dictionary, base_model, other_models, change_percentage, metrics, improve=True):
@@ -53,6 +60,31 @@ def bootstrapped_bleu(model_dictionary, model_name, bootstrap_list):
     return corpus_bleu(hyp, ref, tokenize='code')
 
 
+def bootstrapped_crb(model_dictionary, model_name, bootstrap_list):
+    allrefs = []
+    for problem in model_dictionary:
+        allrefs.append(problem["snippet"])
+    content = [item for sublist in allrefs for item in sublist]
+    k = 100
+    lexer = PythonLexer()
+    tokens = []
+    for j in content:
+        tokens.extend([i for i in list(map(lambda x: x[1], lexer.get_tokens(j))) if not (re.fullmatch('\s+', i) or re.fullmatch('#.*\n', i) or re.match('\"\"\".*\"\"\"', i, re.DOTALL))])
+    pl_counts = []
+    for i in range(1, 5):
+        pl_counts.append(dict(Counter(ngrams(tokens, i)).most_common(k)))
+    trivially_shared_ngrams = {k: v for d in pl_counts for k, v in d.items()}
+    hyp = []
+    ref = []
+    for i in bootstrap_list:
+        hyp.append(tknz(model_dictionary[i][model_name]))
+        eref = []
+        for item in model_dictionary[i]['snippet']:
+            eref.append(tknz(item))
+        ref.append(eref)
+    return crb(hyp, ref, ignoring=trivially_shared_ngrams)
+
+
 def bootstrapped_metric(model_dictionary, model_name, metric, bootstrap_indices):
     scores = []
     grade_name = metric + '-' + model_name
@@ -69,6 +101,44 @@ def compare_models(model1, model2):
     return m1 / len(model1)
 
 
+def compare_for_significance(grade_significance, metric_significance):
+    if ((0.95 > grade_significance > 0.05) and (metric_significance <= 0.05)) or \
+            ((0.95 > grade_significance > 0.05) and (metric_significance >= 0.95)):
+        return 1
+    elif ((0.05 >= grade_significance) and (0.95 > metric_significance > 0.05)) or \
+            ((0.95 <= grade_significance) and (0.95 > metric_significance > 0.05)):
+        return 2
+    elif ((0.05 >= grade_significance) and (0.95 <= metric_significance)) or \
+            ((0.95 <= grade_significance) and (0.05 >= metric_significance)):
+        return -1
+    else:
+        return 0
+
+
+def metric_bin_score(metric_significance, model1_score, model2_score):
+    if 0.95 > metric_significance > 0.05:
+        return "NS"
+    else:
+        return abs(model2_score - model1_score)
+
+
+def split_into_bins(model_pairs, model_scores, metrics, models):
+    splitting = dict()
+    for metric in metrics:
+        splitting[metric] = []
+        for i, model1 in enumerate(models):
+            for j, model2 in enumerate(models):
+                if i > j:
+                    model_comparison = []
+                    metric_significance = model_pairs[model1][model2][metric]
+                    grade_significance = model_pairs[model1][model2]["grade"]
+                    model1_score = model_scores[model1][metric]
+                    model2_score = model_scores[model2][metric]
+                    model_comparison.append(metric_bin_score(metric_significance, model1_score, model2_score))
+                    model_comparison.append(compare_for_significance(grade_significance, metric_significance))
+                    splitting[metric].append(model_comparison)
+    return splitting
+
 def bootstrap(model_dictionary, models, metrics, p_value=0.05, bootstrap_sampling=500):
     model_size = len(model_dictionary)
     model_scores = dict()
@@ -81,32 +151,43 @@ def bootstrap(model_dictionary, models, metrics, p_value=0.05, bootstrap_samplin
             bootstrap_results[model][metric] = []
     for i in range(bootstrap_sampling):
         bootstrap_list = random.choices([m for m in range(model_size)], k=model_size)
-        print(bootstrap_list)
+        #print(i)
         for m, model in enumerate(models):
+            print(metrics, model)
             for metric in metrics:
                 if metric == 'bleu':
-                    bootstrap_results[model][metric].append(bootstrapped_bleu(model_dictionary, model, bootstrap_list))
+                    #bootstrap_results[model][metric].append(bootstrapped_bleu(model_dictionary, model, bootstrap_list))
+                    pass
                 else:
+                    print(metric)
                     bootstrap_results[model][metric].append(
                         bootstrapped_metric(model_dictionary, model, metric, bootstrap_list))
-
+    with open('tmp.json', 'w') as f:
+        json.dump(bootstrap_results, f)
     for model1 in models:
+        #print(model1)
         model_pairs[model1] = dict()
         for model2 in models:
-            model_pairs[model1][model2] = dict()
-            for metric in metrics:
-                model_pairs[model1][model2][metric] = \
-                    compare_models(bootstrap_results[model1][metric], bootstrap_results[model2][metric])
+            if model1 != model2:
+                model_pairs[model1][model2] = dict()
+                #print(model2)
+                for metric in metrics:
+                    if metric != 'bleu':
+                        model_pairs[model1][model2][metric] = \
+                            compare_models(bootstrap_results[model1][metric], bootstrap_results[model2][metric])
 
     for model in models:
+        #print(model)
         for metric in metrics:
-            bootstrap_results[model][metric].sort()
-            print(model, metric)
-            print(bootstrap_results[model][metric])
-            model_scores[model][metric + '-low'] = bootstrap_results[model][metric][
-                round(p_value * bootstrap_sampling / 2)]
-            model_scores[model][metric + '-high'] = bootstrap_results[model][metric][
-                -round(p_value * bootstrap_sampling / 2)]
+            if metric != 'bleu':
+                bootstrap_results[model][metric].sort()
+                print(model, metric)
+                #print(bootstrap_results[model][metric])
+                model_scores[model][metric + '-low'] = bootstrap_results[model][metric][
+                    round(p_value * bootstrap_sampling / 2)]
+                model_scores[model][metric + '-high'] = bootstrap_results[model][metric][
+                    -round(p_value * bootstrap_sampling / 2)]
+                model_scores[model][metric] = bootstrap_results[model][metric][round(bootstrap_sampling / 2)]
 
     return model_pairs, model_scores
 

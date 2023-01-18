@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "metrics-codegen"
+version = "0.1.0"
+description = ""
+authors = ["Misha Evtikhiev <mikhail.evtikhiev@jetbrains.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+jupyter = "^1.0.0"
+matplotlib = "^3.5.1"
+portalocker = "^2.3.2"
+tabulate = "^0.8.9"
+colorama = "^0.4.4"
+dpu-utils = "^0.6.1"
+typed-ast = "^1.5.2"
+tree-sitter = "^0.20.0"
+networkx = "^2.6.3"
+editdistance = "^0.6.0"
+func-timeout = "^4.3.5"
+py-rouge = "^1.1"
+rouge-score = "^0.0.4"
+pandas = "^1.4.1"
+crowd-kit = "^0.0.9"
+torch = "^1.10.2"
+crystalbleu = "^0.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+

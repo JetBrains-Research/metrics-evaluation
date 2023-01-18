@@ -1,0 +1,500 @@
+os . system ( ` signal . SIGUSR1 ` ) 0.14320952289897707 0.1760928267911618
+print ( 4a4b4c . decode ( ` 4a4b4c ` , ` ignore ` ) ) 0.3118290534619236 0.5118252869949449
+[ i for i in my List if i = = i ] 0.12910533446370265 0.2800221821228305
+` ` ` ` ` ` . join ( str ( x ) for x in str ( Python ) ) 0.0417996540826793 0.16927318970546587
+unicodedata . normalize ( ` NFKD ` , string ) . encode ( ` utf8 ` ) 0.4738611152748619 0.4738611152748619
+list ( kwargs . values ( ) ) 0.05971648413335981 0.29434820206436557
+list ( kwargs . values ( ) ) 0.020645229750643177 0.17114309205155442
+subprocess . call ( ` ps - ef | grep something | wc - l ` , * * subprocess . check_output ( ` ps - ef | grep something | wc - l ` ) , shell = True ) 0.4723211917568974 0.8806626677278203
+` ` ` ` ` ` . join ( [ ` a ` , ` b ` , ` c ` ] ) 1.0 1.0
+pd . concat ( [ s1 ] * 5 , ignore_index = True ) 0.04652458072580843 0.19508205674664703
+r = requests . get ( client ) 0.02365931054820935 0.031142484770067234
+datetime . datetime . strptime ( ` January 11 , 2010 ` , ` % B % d , % Y ` ) . strftime ( ` % a ` ) 0.26210462197065476 0.4653024295510498
+[ s . split ( ` ` ) for s in input String . split ( ` , ` ) ] 0.2516441111691874 0.29759282342490984
+a b c . split ( ` \ n ` ) 0.3551167580747688 1.0
+[ ` ` . join ( x ) for x in b ] 0.46944590249571533 0.47229389414007084
+Entry . objects . values_list ( ` Entry ` , flat = True ) 0.18318641393595095 0.18318641393595095
+np . array ( [ 1 , 2 , 3 , 4 ] ) . sum ( axis = 0 ) 0.1849304691034943 0.3026643726685863
+warnings . info ( ` always ` ) 0.5946035575013605 0.5946035575013605
+list ( map ( tuple , [ ] ) ) 0.12468257194435667 1.0
+os . system ( hello . py ) 0.03308426786106404 0.7186969683828063
+time . ctime ( datetime . datetime . time ( hours = 3 ) ) 0.012222280333990383 0.13955502820510546
+float ( float ( my_float ) ) 0.05682957048199044 0.7145126229662961
+print ( ` , ` . join ( map ( str , 123 , 456 . 908 ) ) ) 0.3570583512587401 0.38209449805737083
+os . chdir ( os . path . dirname ( __file__ ) ) 0.11202079346313558 0.11202079346313558
+re . split ( ` ( \ \ W + ) ` , ` Words , words , words . ` ) 1.0 1.0
+f = open ( ` Output . txt ` , ` rb ` ) 0.7272454093000141 0.7272454093000141
+urllib . request . urlretrieve ( ` http : / / www . example . com / songs / mp3 . mp3 ` , ` mp3 . mp3 ` ) 1.0 1.0
+urllib . request . urlretrieve ( ` < unk > ` , ` file_name ` ) 1.582834753494412e-05 7.310805449782047e-05
+testfile = httplib . HTTPConnection ( ` http : / / www . example . com / ` ) 0.45897827059490387 0.5737618401341797
+file_name = wget . download ( url ) 0.23356898886410005 0.363622704650007
+urllib . request . urlretrieve ( ` 10MB ` , ` ignore ` ) 0.04881359141634737 0.0883012393808378
+parser . add_argument ( ` - - version ` , nargs = ` * ` ) 0.2957959769663092 0.5788941820090083
+d . pop ( ` c ` , None ) 0.06824052038741776 0.20744432576282615
+pd . concat ( [ split_df , csv_df ] ) . rename ( columns = { ` key ` : ` csv_df ` } ) 0.11472655472907799 0.24363609542033854
+re . findall ( ` < unk > ` , ` 4 ` ) 0.09238430210261096 0.7506238537503395
+ast . literal_eval ( ` keyboard - input ` ) 0.12549310621989482 0.13784336590962212
+app = threading . call ( debug = True ) 0.42728700639623407 0.8633400213704505
+mylist . write ( ` save . txt ` ) 0.24345633712861633 0.5123239034792122
+np . dstack ( np . meshgrid ( P , T ) ) . reshape ( * * T ) 0.1357727755005872 0.19896717496461128
+list ( itertools . product ( list ( range ( 0 , len ( y ) + 1 ) ) , * * x ) ) 0.03951744928978941 0.4682568791024402
+re . sub ( ` < unk > ` , ` \ \ 1Bull ` , content ) 0.048641498756632165 0.0598327875257124
+x = np . loadtxt ( ` x ` , delimiter = ` , ` ) 0.12106648869389192 0.19302924372233407
+sum ( L ) 0.008275023998627297 0.15365214826612292
+float ( ` ` . join ( str ( ord ( c ) ) for c in ` 470FC614 ` ) ) 0.1299244123814849 0.2347524451753121
+map ( dict , zip ( * [ [ ( k , v ) for k , v in my_dict . items ( ) ] for v in list ( my_dict . values ( ) ) ] ) ) 0.23333934382138738 0.33461538468500984
+os . path . dirname ( os . path . abspath ( sleep . sh ) ) 0.10123734869668828 1.0
+[ x for x in l if x not in [ ` , ` , ` , ` ] ] 0.08475426399505566 0.1262909976406414
+[ ` , ` . join ( map ( str , row ) ) for row in my List ] 0.5218563005079392 0.5218563005079392
+all ( i in j for i in range ( 10 ) ) 0.3026643726685863 0.42437284567694994
+` ` ` lamp , bag , mirror ` ` ` . replace ( ` bag , ` , ` ` ) 0.7635414465786532 0.847992843627286
+` ` ` ` ` ` . join ( sorted ( s . split ( ) , key = lambda t : t [ 0 ] , reverse = True ) ) 0.30950920105373303 0.4849576058746578
+time . strftime ( ` % Y - % m - % d % H : % M : % S . % f ` , ` % Y - % m - % d % H : % M : % S . % f ` . format ( represented ) ) 0.4576011465614267 0.5296257389952524
+time . strftime ( ` % Y - % m - % d % H : % M : % S ` ) 0.5975533334754721 0.6324819531525653
+datetime . datetime . now ( ) 0.11731916609425078 0.319381408121714
+sum ( sum ( x ) for x in data ) 0.1919385676652243 0.1919385676652243
+sum ( sum ( x ) for x in array ) 0.05421618470716711 0.20194664182684507
+hex ( int ( ` your string ` , 2 ) ) 0.2931179403571363 0.4845766087853281
+dict ( ( k , v ) for k , v in dicts . items ( ) ) 0.21684388706887905 0.3422457786665999
+dict ( ( k , v ) for k , v in dicts . items ( ) if v ) 0.05446738478088692 0.170595737016168
+request . headers . get ( ` / ` ) 0.09980099403873663 0.17747405280050263
+[ i for i , j in enumerate ( mylist ) if i ] 0.08095297293902186 0.20244536640933233
+x_file = open ( os . path . join ( __file__ , ` apps ` ) , ` r ` ) 0.3654541431305078 0.651079730112447
+feature3 = [ os . path for url in os . listdir ( ` o ` ) ] 0.08022600929238216 0.08022600929238216
+cursor . execute ( ` INSERT INTO table ( ` column1 ` ) VALUES ( % s ) ` , ( None , ) ) 0.5076298947449179 0.5076298947449179
+list_of_menuitems = [ i [ 0 ] for i in list_of_menuitems ] 0.08516593018819643 0.08516593018819643
+a . write ( ` \ n ` . join ( b ) ) 0.13292417883329388 1.0
+[ [ ] for i in range ( 2 ) ] 0.044568827606990644 0.16784459625186196
+df . to_csv ( ` np . txt ` , index = False ) 0.13181595631945853 0.18871545147305002
+df . to_csv ( ` c : \ \ data \ \ pandas . txt ` , index = False ) 0.42374875618669583 0.5687035107740517
+` ` ` - ` ` ` . split ( ` - ` ) 0.27824623288353134 0.2808708327044614
+` ` ` ` ` ` . join ( re . findall ( ` < unk > ` , str ) ) 0.05809665204409193 0.2061477352156375
+requests . get ( ` testfile ` , filename = ` my_file ` ) 0.06883021523637864 0.13400825781778894
+driver . find_element_by_css_selector ( ` XYZ ` ) . click ( ) 0.1562818850798506 0.22961582509302306
+print ( max ( [ 2 , 3 , 4 ] , key = lambda x : ( x [ 1 ] , x [ 2 ] ) ) ) 0.3312615528522037 0.6151442423869368
+print ( ` \ n ` . join ( ` < unk > % s ` % ( key , value ) for key , value in list ( l . items ( ) ) ) ) 0.02818299888381893 0.07141816289329643
+for dirname , dirnames , filenames in os . walk ( ` . ` ) : for subdirname in dirnames : print ( os . path . join ( dirname , subdirname ) ) for filename in filenames : pass 0.22422205348804283 0.28672221250211327
+for dirname , dirnames , filenames in os . walk ( ` source ` ) : for subdirname in dirnames : print ( os . path . join ( dirname , subdirname ) ) for filename in filenames : pass 0.19871426593717226 0.35877324411700423
+[ random . choice ( x ) for x in random . sample ( list ( range ( 100 ) ) , 2 ) ] 0.07327006409491993 0.1316869245939064
+datetime . datetime . strptime ( ` < unk > ` , ` % . 2f ` ) 0.14406129590613104 0.14406129590613104
+session . query ( SELECT * FROM Schedule WHERE station = $ 1 ) . filter ( * * foo . key ( ) ) 0.5181212746323438 0.5181212746323438
+df . filter ( lambda x : x . split ( ` : ` ) = = ` f ` ) 0.10273327819011903 0.13834368456410945
+print ( [ x . map ( ` ` , x ) for x in tab ] ) 0.045180432033830945 0.13450258894217526
+df . drop ( [ df ] , axis = 1 ) 0.05369283297082241 0.08420174038634842
+` ` ` str_2 ` ` ` . format ( ` self . goals ` , ` self . penalties ` ) 0.2688336113454739 0.30502830381979357
+` ` ` ( { } goals , $ { } ) ` ` ` . format ( goals , penalties ) 0.724899591064647 0.724899591064647
+` ` ` ( { 0 . goals } goals , $ { 0 . penalties } ) ` ` ` . format ( ` ( { 0 . goals } goals , $ { 0 . penalties } ) ` , ` ( { 0 . goals } goals , $ { 0 . penalties } ) ` ) 0.3881511947170674 0.788127627745311
+[ int ( i ) for i in L ] 0.08134381507904677 0.19037277956356713
+map ( int , [ 1 , 2 , 3 ] ) 0.02458873800714905 0.3892904392414698
+[ map ( int , sublist ) for sublist in L ] 0.051076731599350736 0.13582058604709374
+print ( ` \ n ` . join ( [ re . sub ( ` < unk > ` , ` ` , lines ) for lines in lines ] ) ) 0.2475303873008388 0.6220700406786386
+[ type ( x ) for x in zip ( * my_list ) ] 0.024316031151970723 0.054751750431961725
+text = ` ` . join ( sorted ( text . split ( ) , key = len ) ) 0.028881265844920047 0.028881265844920047
+df . groupby ( ` index ` ) . head ( 1 ) 0.11498759556447223 0.11498759556447223
+re . findall ( ` ( ? < ! Distillr ) \ \ \ \ Acro Tray \ \ . exe ` , ` C : \ \ Some Dir \ \ Acro Tray . exe ` ) 0.9373341827832584 0.9373341827832584
+re . match ( ` < unk > ` , ` QH QD JC KD JS ` ) . split ( ` ` ) 0.33573064840973227 1.0
+re . match ( ` > . * < ` , line ) . group ( 1 ) 0.6324095569199801 0.754722524176379
+open ( ` filename ` , ` w ` ) . close ( ) 0.6591844162499148 0.6591844162499148
+datetime . strptime ( ` % Y - % m - % d % H : % M : % S . % f ` , ` % Y - % m - % d % H : % M : % S . % f ` ) 0.5187211219352439 0.7328682192944098
+[ x for x in thelist if x [ 0 ] = = 1 ] 0.18788592628925288 0.1961887304255141
+re . sub ( ` [ ^ 0 - 9a - z A - Z ] + ` , ` ` , text ) 0.4103274379407291 0.42774464413593605
+return ` ` . join ( c for c in text if c . isdigit ( ) ) 0.0341804570322918 0.2886903238098902
+plt . savefig ( ` H20 ` , dpi = 300 ) 0.06863269655992758 0.09163827702757878
+plt . savefig ( ` H20 ` , dpi = 300 ) 0.06863269655992758 0.09163827702757878
+[ item for item in mylist if len ( item ) = = 1 ] 0.35630548449868954 0.35630548449868954
+lst = [ ( p + 0 ) for i in range ( 100 ) ] 0.4261082723917018 0.5333505353503044
+lst = [ Object for Object in lst ] 0.1969664074565468 0.6220700406786386
+min ( enumerate ( someclass ) , key = lambda x : x [ 1 ] ) 0.03040233845069022 0.1448815774290022
+df1 . apply ( lambda x : x . tolist ( ) , axis = 1 ) 0.060196087687056546 0.30277029197532096
+print ( ` < unk > % s , < unk > ` % ( str1 , str1 ) ) 0.1974060384182083 0.22594078607107956
+` ` ` ` ` ` . join ( map ( str , s [ : : 2 ] ) ) 0.03366792723562942 0.13903604773948508
+print ( type ( os . path . exists ( ` directory ` ) ) ) 0.3109048971841926 0.3109048971841926
+sys . exit ( 0 ) 0.004501879182777517 0.21787306855040578
+sys . exit ( 0 ) 0.07654112967106118 0.23356898886410005
+sys . exit ( 0 ) 0.0038107584558866635 0.07465871407386102
+` ` ` ` ` ` . join ( map ( ` ` . join , map ( str . replace , ` H3 ` , ` H1 ` ) ) ) 0.13983656710391773 0.2061927630692647
+` ` ` ` ` ` . join ( map ( chr , int ( ` ` ) ) ) 0.07535838128770536 0.2308087288583725
+print ( [ ` ` . join ( c for c in aas30dsa20 if c . isdigit ( ) ) for c in aas30dsa20 ] ) 0.2785481825766967 0.2785481825766967
+soup . find ( ` div ` , href = re . compile ( ` name ` ) ) [ ` name ` ] 0.29176300840900804 0.34823528327578535
+dict ( ( k , v ) for k , v in cursor . items ( ) if v ) 0.11154288433080788 0.2415725261015974
+numpy . loadtxt ( open ( ` file . txt ` , ` rb ` ) , delimiter = ` , ` , skiprows = 1 ) 0.021720545517096214 0.050639965067814104
+np . importlib ( A < B , axis = 0 ) . B ( ) 0.0847178590796544 0.3013040489278569
+sum ( 1 for line in open ( ` filepath ` ) ) 0.04065425428798724 0.21874242445215208
+sum ( a = = a for a in l ) 0.053001566897562975 0.23462350320528
+sum ( len ( x ) for x in l ) 0.08295193507109859 0.5946035575013605
+sum ( len ( x ) for x in l ) 0.1326695636518798 0.1326695636518798
+sum ( len ( x ) for x in l ) 0.13912429491523023 0.1601486915928717
+sum ( a = = b for a in l ) 0.053001566897562975 0.22416933501922293
+dstdir = os . listdir ( ` dstdir ` ) 0.059342026097604875 0.17286039232097053
+max ( ( k , v ) for k , v in x . items ( ) ) 0.5633876914330443 0.5633876914330443
+max ( abs ( x ) for x in list ( x . values ( ) ) if x [ 0 ] ! = 0 ) 0.14153945350617025 0.2819665911730608
+max ( list ( x . items ( ) ) , key = lambda x : x [ 1 ] ) 0.21377723941583865 0.23077730953785425
+os . write ( put ) 0.10682175159905853 0.7598356856515925
+df . apply ( lambda x : x . merge ( df [ ` c ` ] , df [ ` a ` ] ) ) 0.4138490519160785 0.4138490519160785
+d . pop ( ` ele ` , None ) 0.16784459625186196 1.0
+datetime . datetime . fromtimestamp ( My Model ) . strftime ( ` is ` ) 0.0561687403895027 0.250737833894674
+[ list ( t ) for t in zip ( [ ` it ` ] , [ ` was ` ] , [ ` [ ` annoying ` ] ` , ` str_3 ` ] ) ] 0.2798361194223795 0.3233842870691159
+np . sum ( 1 for i in range ( 100 ) ) 0.059773257379243556 0.12455735564577518
+pd . sorted ( df . values . tolist ( ) ) 0.07353747882151647 0.12045972307298898
+t = list ( t ) 0.5081327481546147 0.5081327481546147
+map ( list , zip ( * t ) ) 0.049900497019368314 0.10552670315936319
+level1 = list ( level1 ) 0.18204651199034363 0.18204651199034363
+dataobject . write ( dataobject ) 0.11708995388048027 0.15447878876032708
+Bool Col . iloc [ Bool Col [ ` Bool Col ` ] . isin ( [ 1 , 6 ] ) ] 0.2245166162074563 0.26512298021756175
+df . groupby ( [ ` Bool Col ` , ` Bool Col ` ] ) [ [ ` Bool Col ` , ` Bool Col ` ] ] . update ( { ` Bool Col ` : df [ ` Bool Col ` ] } ) 0.1673803992260107 0.3042060837668054
+Bool Col [ df [ ` Bool Col ` ] . isin ( [ 1 , 1 ] ) ] 0.3967088290836577 0.5181988962287803
+df . loc [ df [ ` Bool Col ` ] . isin ( [ 1 , 1 ] ) ] 0.39108032752923605 0.5584203007620824
+os . chdir ( os . path . dirname ( owd ) ) 0.2691109110344472 1.0
+c . insert ( 0 , ` testfield ` ) 0.042568647616971884 0.055782213454616085
+` ` ` ` ` ` . join ( x [ 0 ] . strftime ( ` ` ) for x in normal . find ( ` str_3 ` ) . split ( ` , ` ) ) . decode ( ` utf8 ` ) 0.13182877145894317 1.0
+n = ` ` . join ( ` ` . join ( i [ 0 ] . astype ( int ) for s in raw_string . split ( ) ) for s in raw_string . split ( ) ) 0.02952464657861394 0.10127993013562818
+n = ` ` . join ( ` ` . join ( i [ 0 ] . astype ( int ) for s in raw_byte_string . split ( ) ) for s in raw_byte_string . split ( ) ) 0.02952464657861394 0.10127993013562818
+print ( re . findall ( ` < unk > ` , s ) ) 0.09243203407184324 0.11850085177910141
+plt . scatter ( * zip ( * plot ) , * * color ) 0.08837317723554261 0.3713984361467897
+plt . scatter ( x , y , vmin = 0 , vmax = 15 ) 0.025446898683521447 0.045210593060857396
+div . find_all ( ` main - content ` , class_ = ` main - content ` ) 0.3670943702777741 0.5027513404193049
+ids . filter ( ` < unk > ` , str ( ball ) ) 0.06085624201234121 0.2338135381601261
+df . set_index ( ` Date ` ) . unstack ( level = 0 ) 0.20333448190047881 0.20333448190047881
+df = pd . Data Frame ( index = df . index ) 0.2044800736021839 0.2044800736021839
+df . apply ( lambda x : x . tolist ( ) , axis = 1 ) 0.060196087687056546 0.14216645907653844
+[ i for i , j in enumerate ( b ) if i ! = 1 ] 0.060196087687056546 0.35685360466076504
+a = [ ( x , y ) for x , y in zip ( a , b ) ] 0.6952928981880553 0.6952928981880553
+[ ( a + b ) for a , b in zip ( a , b ) ] 0.05281226482861377 0.11967624529634999
+` ` ` , ` ` ` . join ( str ( i ) for i in list_of_ints ) 0.774785983155898 0.774785983155898
+data = requests . post ( ` DATA ` , cookies = password ) 0.14689890756841023 0.24765623504685147
+re . findall ( ` < unk > ` , ` abcd } def } ` ) [ - 1 ] . replace ( ` } ` , ` } ` ) 0.25725582592645957 0.5207332064246721
+print ( [ y for x in zip ( * [ 1 , 2 , 3 ] ) for y in x ] ) 0.3299895472527792 0.540856266901231
+[ tuple ( x ) for x in zip ( * d ) ] 0.1419137752072877 0.35477089073088547
+os . listdir ( ` hemanth . txt ` ) 0.15777684932819505 0.37736569397031927
+dict ( ( k , v ) for k , v in x . items ( ) if v = = 1 ) 0.04725068679267516 0.09241839713716195
+[ list ( x ) for x in zip ( * [ [ ` A ` , ` B ` , ` C ` ] , [ ` D ` , ` E ` , ` F ` ] , [ ` G ` , ` H ` , ` I ` ] ] ) ] 0.7830643523450135 0.8302349785034864
+df . groupby ( level = 0 ) . cumcount ( ) = = 0 0.01857817198548724 0.49910013775975964
+df . replace ( ` \ n ` , ` < br > ` ) 0.4011054440799034 0.41394890861188494
+df . replace ( ` < br > ` , ` ` ) 0.28700912143033036 0.4011054440799034
+[ ` ` . join ( x ) for x in word . split ( ) ] 0.1043938583872227 0.4824596045788106
+[ x [ 0 ] for x in word . split ( ` , ` ) ] 0.022583466957686364 0.3024851252569019
+urllib . parse . quote ( my String . headers ( ) ) 0.03423169796102844 0.3324499687124518
+urllib . parse . quote ( my String . headers ( ) ) 0.014061744876638914 0.11458321110105424
+re . sub ( ` < unk > ` , ` ` , mystring ) 0.37987955789773087 0.413948387915005
+calendar . monthrange ( 13 , 1 ) 0.011175866963886779 0.3685289119518547
+[ [ [ x [ 0 ] ] for x in matrix [ i ] ] for i in range ( len ( matrix ) ) ] 0.04807547001959651 0.04807547001959651
+` ` ` ` ` ` . join ( x . strip ( ) or x . isdigit ( ) for x in re . sub ( ` [ \ \ W_ ] + ` , ` ` , para ) . split ( ` ` ) ) 0.05987016463560546 0.18185234853618296
+print ( os . path . dirname ( os . path . abspath ( __file__ ) ) ) 0.28433291815307693 0.861173529963367
+my_string . split ( ` ` ) 0.16204686537755628 0.18939648096599915
+os . getcwd ( ) 0.0765233213136053 0.343763879968285
+[ i for i in l if i in l ] 0.051223372934525654 0.16345007007329007
+re . split ( ` / ` , ` Docs / src / Scripts / temp ` ) 0.32394992695123614 0.3519053000448044
+np . array ( np . array ( [ [ 1 , 2 , 3 ] , [ 4 , 5 , 6 ] ] ) ) 0.07850691379498788 0.1902901500837473
+df [ ` D ` ] = df [ ` B ` ] . apply ( lambda x : x [ ` D ` ] + x [ ` df ` ] ) 0.3635738207738405 0.6952582546166497
+[ x for x in data if x [ ` B ` ] = = ` B ` ] 0.10821002478144039 0.25550989854580997
+string . isdigit ( ) 0.042343488066592626 0.05369488567517932
+print ( glob . glob ( ` < unk > ` ) ) 0.054309030318494995 0.06261258624577644
+cursor . execute ( ` INSERT INTO table VALUES ( % s , % s , % s ) ` , ( var1 , var2 , var3 ) ) . update ( key = lambda i : int ( i [ 1 ] ) ) 0.021400286214609147 0.09578464408619825
+user_list = [ int ( i ) for i in user_input . split ( ) ] 0.4366002163357506 0.6004981752197522
+list ( user . split ( ` , ` ) ) 0.4158968481156591 0.4452917026156654
+sorted ( l , key = lambda x : x [ 1 ] ) 0.3725402863042404 0.7101597085038577
+ut . sort ( * * operator . attrgetter ( ` cmpfun ` ) ) 0.18207052811092134 0.4089601472043678
+list ( ut . keys ( ) ) . get ( key = lambda x : x [ 1 ] ) 0.32178169209299734 0.6841262339661334
+sorted ( ut , * * sorted ( set ( itertools . chain . from_iterable ( ut ) ) ) ) 0.02842326538113703 0.25281168697394946
+browser . find_element_by_class_name ( ` Send ` ) . click ( ) 0.7292571723872933 0.7691605673134586
+browser . find_element_by_class_name ( ` Send In Mail ` ) . click ( ) 0.4244211815894399 0.492972729688056
+browser . find_element_by_class_name ( ` Send In Mail ` ) . click ( ) 0.7744031410142033 0.8091067115702212
+print ( ` ` . join ( str ( ord ( c ) ) for c in ` ` ) ) 0.04567211833282236 0.245981275183433
+df . sort_values ( [ ` x ` , ` y ` ] , ascending = [ True , False ] ) 0.309936240366613 0.309936240366613
+os . listdir ( ` # test firstline \ n ` ) 0.12662648856178602 0.3670540336019316
+sorted ( l , key = lambda x : len ( l [ i ] ) ) 0.14515912863772798 0.14515912863772798
+re . split ( ` < unk > ` , s ) 0.12449626383388855 0.23080317228912955
+re . match ( ` ba [ rzd ] ` , foobarrrr ) . group ( 0 ) 0.4624892603869297 0.6217447903235945
+[ list ( item ) for item in set ( len ( item ) for item in t ) ] 0.06892964965915206 0.3303164318013807
+[ list ( item ) for item in set ( len ( item ) for item in source_list ) ] 0.06892964965915206 0.3303164318013807
+[ list ( item ) for item in set ( len ( item ) for item in abracadabra ) ] 0.05039518688486959 0.08130850857597448
+list ( a ) 0.029603567969095357 0.19018379497840193
+a = numpy . array ( a , 0 ) 0.31654199979887593 0.3641784587358345
+print ( soup . find ( ` Address : ` , * * re . compile ( ` Address : ` ) ) . replace ( ` M ` , ` ` ) ) 0.28708091158717847 0.34841475301935515
+[ ` ` . join ( x ) for x in zip ( * l ) ] 0.15962531223308554 0.37013144415132787
+print ( ` ` . join ( zip ( * l ) ) ) 0.06930725126100298 0.19532064279505568
+driver . find_element_by_id ( ` < unk > ` ) . getcode ( ) 0.08862962837251186 0.08862962837251186
+re . findall ( ` \ \ d + [ x X ] ` , teststr ) 0.46324955521475414 0.49799409016592516
+df . loc [ df [ ` B ` ] . isin ( [ 1 , 1 ] ) ] 0.181675124071465 0.181675124071465
+sorted ( list ( o . items ( ) ) , key = lambda x : x [ 1 ] ) 0.2971567888130264 0.43000007605628365
+sorted ( d , key = d . get ) 0.16784459625186196 0.24446151121745052
+sorted ( list ( data . items ( ) ) , key = lambda x : x [ 1 ] ) 0.19554016376461797 0.28261688976967947
+int ( ` 1 ` , 2 ) 0.5410822690539396 0.7598356856515925
+sum ( int ( x ) for x in list ( ` ` . join ( map ( str , x ) ) ) ) 0.03333744983027297 0.10552670315936319
+[ int ( x ) for x in list ( T1 . values ( ) ) ] 0.2545984531673679 0.31843164596791895
+subprocess . call ( ` test . sh < unk > ` ) 0.283130219764777 0.5423782837718303
+subprocess . call ( [ ` test . sh ` , subprocess . PIPE ( notepad ) ] ) 0.2966090320349725 0.4052587697205425
+print ( zip ( l1 , l2 ) ) 0.26986439031772713 0.30329987166688377
+` ` ` Hello ` ` ` . encode ( ` UTF8 ` ) 0.08493098745313143 0.456083954535194
+ascii . encode ( ` data to be encoded ` ) 0.5144640680552266 0.5653524104700701
+np . genfromtxt ( ` text . txt ` , delimiter = ` \ t ` , dtype = None ) 0.3966575020418066 0.448880539996051
+getattr ( my_object , my_str ) 1.0 1.0
+dict ( ( k , LD [ k ] ) for k in LD ) 0.03960307696160986 0.22739724436205377
+map ( sum , zip ( * tuples ) ) 0.04091092899898372 0.24997758323995953
+dict ( unicodedata . encode ( ` latin - 1 ` ) ) 0.04838693166975793 0.06641447444760476
+[ w for w in mystring . split ( ) if w not in ` $ ` ] 0.38421386740573527 0.38421386740573527
+text . strftime ( ` any ` ) 0.0023494881425947774 0.10298165682687814
+A = np . where ( np . isnan ( A ) , 0 , A ) 0.19101794078223236 0.19146779509154963
+np . array ( [ 1 , 2 , 3 ] ) . reshape ( 2 , - 1 ) 0.05993031480537873 0.32395607625450734
+subprocess . call ( ` / pathto / Myr Script . r ` , shell = True ) 0.3044478916003777 0.40449259835217644
+subprocess . Popen ( [ ` rm ` , ` - r ` , ` some . file ` ] ) 0.07596609949214492 1.0
+df = pd . read_csv ( ` < unk > ` , skiprows = 1 , header = None ) 0.02519759344243479 0.040161384364076534
+df [ ` average ` ] = df [ ` df ` ] . map ( lambda x : x . fillna ( x . mean ( ) ) ) . mean ( ) 0.07929339938070641 0.24873444170233966
+` ` ` { : , } ` ` ` . format ( timestamp ) . strftime ( ` % Y - % m - % d % H : % M : % S ` ) 0.5787547466027113 0.6060513735940873
+super ( do , self ) . __init__ ( * args , * * kwargs ) 0.08225964699966556 0.2998221389342337
+a [ np . arange ( a . shape [ 0 ] ) [ : , ( None ) ] , a ] 0.16322813427082347 0.18805954584781662
+` ` ` ` ` ` . join ( ` ` . join ( map ( lambda x : ` ` . join ( x ) , x ) ) for x in mydict . split ( ` ` ) ) 0.0737751516991571 0.3187271473320672
+max ( words , key = lambda x : len ( words [ i ] ) ) 0.34823528327578535 0.34823528327578535
+print ( str ( result [ ` str_2 ` ] ) [ 0 ] ) 0.157188773630212 0.3521856535823236
+print ( f . readlines ( ) ) 0.039790058854727285 0.4663449625549862
+dict ( ( k , v ) for k , v in a . items ( ) if v ) 0.6208828711777619 0.8948393168143697
+f = open ( ` path / to / FILE_NAME . ext ` , ` wb ` ) 0.7965670178751182 0.7965670178751182
+df [ ` count ` ] . str . split ( ` ` ) . apply ( lambda x : sum ( x [ 0 ] = = x [ ` count ` ] for x in list ( x . values ( ) ) ) ) 0.06359080020526657 0.20770977010072397
+any ( k in ` EMP $ $ ` for k in EMP $ $ ) 0.2704370881392503 0.5035596382125481
+[ k for k , v in dict1 . items ( ) if v = = ` EMP $ $ ` ] 0.29842400125041424 0.4917722705230944
+df = pd . Data Frame ( sf , columns = [ ` email ` , ` list ` ] ) 0.3222779067859358 0.3222779067859358
+print ( ` ` . join ( map ( str , list ) ) ) 0.7667884230637944 0.7667884230637944
+print ( ` Ð ¿ Ñ \ x80 Ð ¸ ` . encode ( ` UTF8 ` ) ) 0.2574006808732103 0.30950920105373303
+print ( re . findall ( ` \ \ w ` , ` Sopet Ã ³ n ` ) ) 0.06142614381176364 0.2525067388023811
+img . show ( ) 0.015577298727187733 0.2967734779591082
+print ( [ i for i in re . findall ( ` enumerate ` , s ) if i > 0 ] ) 0.1848295099572548 0.1848295099572548
+struct . unpack ( ` f ` , ` { 0 : . 2f } ` . format ( float ( ` 1 / 3 * 100 ` ) ) ) 0.30322393204111375 0.42184274819003564
+sorted ( mylist , * * { ` title ` : ` title ` } ) 0.11251329738544609 1.0
+sorted ( l , key = lambda x : list ( x . values ( ) ) [ ` title ` ] , reverse = True ) 0.28755838200176376 0.42902556537105646
+order . sort ( key = lambda d : d . get ( ` title ` , d [ ` title_url ` ] ) ) 0.35525005527390013 0.4602943273794055
+[ max ( x , * * x ) for x in range ( len ( x ) ) ] 0.09102647460529191 0.18677906828639054
+soup . body . find All ( text = ` span ` ) 0.08499822591020918 0.35642944815504496
+df . to_csv ( ` a_schema ` , * * False ) 0.14514048214980696 0.3228175188584354
+re . findall ( ` # ( \ \ w + ) ` , ` s ` ) 0.10014783047707192 0.2951632910336352
+[ k for k , g in itertools . groupby ( [ L ] ) ] 0.02911283813378544 0.07289334177359764
+f = open ( ` file ` , ` r ` ) 0.0788768888990444 0.08276380533331384
+len ( testlist ) - len ( set ( testlist ) ) 0.0735952082279458 0.08765424318172765
+len ( testlist ) - len ( set ( testlist ) ) 0.0735952082279458 0.08765424318172765
+len ( testlist ) - len ( set ( testlist ) ) 0.048516951451923876 0.06412921425524157
+len ( testlist ) - len ( set ( testlist ) ) 0.05369283297082241 0.06135975006008175
+len ( testlist ) - len ( set ( testlist ) ) 0.041816020362998634 0.0499274730631443
+len ( testlist ) - element [ : : - 1 ] 0.08054496384843701 0.6065306597126334
+len ( testlist ) - element [ : : - 1 ] 0.06386992091194856 0.18887560283756186
+[ x [ 0 ] for x in lis ] 0.0922410081944281 0.22637359354764466
+max ( enumerate ( lis ) , key = lambda x : x [ 0 ] ) [ 0 ] 0.21576146358278564 0.45723134461864345
+sleep . sleep ( 1 ) 0.7598356856515925 0.7598356856515925
+` ` ` ` ` ` . join ( item for item in L for item in list ( item ) ) 0.21137119796717818 0.29461910372947864
+b = models . Foreign Key ( ` 0000000 ` , order_by = ` 0000000 ` ) 0.298031047649218 0.298031047649218
+sorted ( list ( list5 . items ( ) ) , key = lambda x : x [ 1 ] ) 0.1283652002497733 0.23734497614202335
+sorted ( list ( mydict . items ( ) ) , key = lambda a : ( a [ a ] , b ) ) 0.1564740794312831 0.17411036809769517
+list ( range ( 1 , 3 ) ) 0.07320696493449272 0.1035302826705312
+[ x for x in oldlist if x [ 1 ] = = 0 ] 0.03274022663703835 0.14069146483778783
+f = open ( ` yourfile . txt ` , ` wb ` ) 0.8091067115702212 0.8091067115702212
+getattr ( obj , ` attr ` ) 1.0 1.0
+hex ( tuple ( map ( lambda t : ( x , t + t ) , ( ( ` aa ` , ) , ( ` bb ` , ) , ( ` cc ` , ) ) ) ) ) 0.5881977615553198 0.6289519503095198
+[ list ( x ) for x in zip ( * ( ( ` aa ` , ) , ( ` bb ` , ) , ( ` cc ` , ) ) ) ] 0.6612392275852992 0.6851930048526936
+df = pd . Data Frame ( [ a ] , columns = [ ` a ` , ` b ` ] ) 0.10517036597271202 0.40761288263875517
+[ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) ] . append ( [ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) ] ) 0.47768400846861925 1.0
+[ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) ] . append ( [ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) ] ) 0.47768400846861925 1.0
+zip ( * original ) 0.001726013897725964 0.05162258317941435
+original . sort ( * * original ) 0.012217034101615055 0.04463775019818459
+[ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) , ( ` e ` , ) ] . append ( [ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) , ( ` e ` , ) ] ) 0.48153217257584796 1.0
+[ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) , ( ` e ` , ) ] . insert ( 0 , ` [ ( ` a ` , 1 ) , ( ` b ` , 2 ) , ( ` c ` , 3 ) , ( ` d ` , 4 ) , ( ` e ` , ) ] ` ) 0.45305379267564067 0.861488284619274
+json . dumps ( { ` Decimal ( ` 3 . 9 ` ) ` . encode ( ` Decimal ( ` 3 . 9 ` ) ` ) : v for k , v in json . enumerate ( Decimal ( ` 3 . 9 ` ) ) } ) 0.21357935561448768 0.5089175114935747
+d [ ` mynewkey ` ] . update ( { mynewkey } ) 0.3805803001674946 1.0
+globals ( ) . update ( { ` a ` : 1 } ) 0.6450001140844255 0.6450001140844255
+globals ( ) . update ( { ` a ` : 1 } ) 0.1350862565735142 0.18360281349467958
+globals ( ) . update ( { ` a ` : 1 } ) 0.12571192676522522 0.23356898886410005
+numpy . argwhere ( np . all ( matrix = = [ matrix ] ) ) 0.11251329738544609 0.17625225359752866
+print ( round ( answer , 2 ) ) 0.6913086465463161 0.6913086465463161
+pat = re . compile ( ` < unk > ` ) 0.02996248787367967 0.02996248787367967
+df . filter ( lambda df : np . arange ( A . sum ( ) ) = = 1 ) 0.17669048376390598 0.3694806344312654
+myfile . write ( open ( ` file . txt ` , ` w ` ) . read ( ) ) 0.05684653076227407 0.06482993212910186
+lst = [ int ( x ) for x in open ( ` filename . txt ` ) . read ( ) ] 0.4216890913810254 0.4381129694353713
+plt . plot ( mappable , bar , color = color ) 0.12192091596713041 0.13741953268935678
+df . groupby ( ` text ` ) . agg ( lambda x : x . tolist ( ) ) 0.13176149036119775 0.1874702571602248
+re . findall ( ` \ \ S + ` , str1 ) 0.1672301307719698 0.19843713235503102
+print ( list ( itertools . product ( [ ( 1 , 2 , 3 ) ] , 2 ) ) ) 0.49296643949535224 0.5877038209148266
+time . mktime ( datetime ( microsecond = 0 ) . split ( ) ) . encode ( ` utf - 8 ` ) 0.023526224894879086 0.1199014838091355
+l = [ [ x for x in s if x ! = x ] for x in list1 ] 0.40157733283424196 0.7210179410842105
+list2 = [ item for item in list1 for item in word . split ( ` : ` ) ] 0.0974812453975988 0.7119674182275002
+data = json . loads ( request . POST . get ( ` data ` , ` { } ` ) ) 0.048853266442119264 0.07474875887495341
+example_str . find All ( ` div ` , href = re . compile ( ` \ \ s + ` ) ) 0.0743666789591756 0.6884641178298285
+re . findall ( ` \ \ [ ( . * ? ) \ \ ] ` , example_str ) 0.38213255855464634 0.39330712486437275
+print ( ` ` . join ( re . findall ( ` « ( [ \ \ s \ \ S ] * ? ) » ` , ( zyx ) bc ) ) ) 0.2263735935476447 0.301485160747049
+re . match ( ` \ \ ( ( . * ? ) \ \ ) | ( \ \ w ) ` , ` ( zyx ) bc ` ) 0.9221220693827681 1.0
+print ( ` ` . join ( filter ( re . match , ` | ` , ( zyx ) bc ) ) ) 0.15424538032406726 0.301485160747049
+re . findall ( ` % { 0 } % ` , elements ) 0.3153958296072574 0.46968008400977357
+print ( subprocess . check_output ( ` < unk > ` , shell = True ) ) 0.07439820585622745 0.3606863653656704
+[ k for k , v in mydict . items ( ) if v = = 1 ] 0.03211547431691929 0.14247788801610148
+dict ( map ( lambda s : s . split ( ` : ` ) , [ ( ` Name ` , ` Joe ` ) , ( ` Age ` , 22 ) ] ) ) 0.539859476450106 0.782673117139774
+np . dstack ( np . meshgrid ( data , data ) , axis = 1 ) . mean ( ) 0.22811045410996433 0.23656321844787176
+re . sub ( ` ( . ) ` , ` \ \ 1 \ \ 1 ` , text . read ( ) ) 0.1973109642098485 0.21849712035317273
+re . findall ( ` < unk > ` , ` < unk > ` ) 0.08804641339558092 0.2080315522738391
+plt . gca ( ) . plot ( x = ` col_name_1 ` , y = ` col_name_2 ` , style = ` o ` ) 0.08415986258156724 0.3263598326609893
+dict ( ( v , k ) for k , v in my Dictionary . items ( ) ) 0.27303362914970813 0.46482123822983074
+[ a for c in how if ` what ` in c ] 0.056104515861482164 0.13632197502587406
+any ( x in obj for x in obj . split ( ` , ` ) ) 0.03234245292096217 1.0
+any ( x in o for x in o . split ( ` , ` ) ) 0.03234245292096217 1.0
+any ( x in o for x in o . split ( ` , ` ) ) 0.03419798030780472 0.16449759298465816
+any ( x in o for x in o . split ( ` , ` ) ) 0.03234245292096217 1.0
+any ( i in obj_to_test for i in obj_to_test . split ( ` , ` ) ) 0.03234245292096217 0.044568827606990644
+[ j for i in list1 for j in i ] 0.03747776736677922 0.37991784282579627
+[ j for i in mylog for j in i ] 0.03747776736677922 0.37991784282579627
+[ j for i in a for j in i ] 0.03747776736677922 0.37991784282579627
+[ list ( y ) for y in mylog ] 0.09548450962056532 0.3945881255591767
+[ ( x + y ) for x , y in zip ( a , b ) ] 0.050095080484654934 0.413948387915005
+SECRET_KEY = models . Foreign Key ( ` Your_secret_string ` , unique = True ) 0.11633270842295028 0.18207052811092134
+pd . Data Frame ( data , columns = [ ` out - 1 ` , ` out - 2 ` ] ) 0.544823053553066 0.694682797329604
+[ i for i , j in enumerate ( stocks_list ) if i = = ` MSFT ` ] 0.2915425713265141 0.2915425713265141
+plt . plot ( list ( range ( 0 , len ( ax ) + 1 ) ) , vmin = 0 , vmax = 15 ) 0.021720545517096214 0.3448444257953326
+s . replace ( ` and ` , ` ` ) 0.16341149865741866 0.5301646310382838
+print ( os . path . dirname ( os . path . realpath ( __file__ ) ) ) 0.7519760309383661 0.7519760309383661
+re . findall ( ` \ n \ \ s * \ n ` , str ) 0.21920888547411296 0.21920888547411296
+re . split ( ` [ ] ( ? = [ A - Z ] + \ \ b ) ` , input ) 1.0 1.0
+input . split ( ` ` ) 0.0738236656857786 0.09857708014755968
+r = requests . get ( files , auth = ( ` url ` , ` headers ` ) ) 0.16950852799011137 0.2711341541071568
+filename . write ( struct . pack ( ` < I ` , open ( bytes_ ) ) ) 0.17334889155550148 0.23689513583146024
+dict ( ( k . get ( ` key ` ) , v ) for k , v in list ( dct . values ( ) ) ) 0.0335823602617743 0.08808424865565326
+x . set_index ( ` name ` ) . agg ( lambda x : x . tolist ( ) ) 0.44441837360913394 0.6510803637373397
+round ( 1 . 923328437452 , 3 ) 1.0 1.0
+li . sort ( key = operator . itemgetter ( 1 ) ) 0.017889828824477597 0.34738515334815484
+ax . errorbar ( x , ax , yerr = err , ecolor = ` ax ` ) 0.05108099332943181 0.20801195378010612
+os . my_path . abspath ( my_path ) 0.2705411345269699 0.5
+sum ( i for i in list ( yourdict . keys ( ) ) ) 0.5659119256652702 0.6210359693750878
+sum ( len ( v ) for v in yourdictfile . values ( ) ) 0.11665102855238314 0.1967274688523915
+pd . concat ( [ df . head ( 1 ) , pd . Time Grouper ( freq = ` id ` ) ] ) 0.12740810460323607 0.28326302347195154
+pd . concat ( [ df1 , df2 ] , axis = 1 ) 0.24885030231405383 0.3658242227752866
+data . startswith ( ` src = ` js / ( [ ^ ` ] * \ \ bjquery \ \ b [ ^ ` ] * ) ` ` ) 0.8318264390074748 1.0
+sum ( sum ( x ) for x in [ ` ` , ` 3 . 4 ` , ` ` , ` ` , ` 1 . 0 ` ] ) 0.5465128337004639 0.5818507226723691
+subprocess . call ( ` c : \ \ Program Files \ \ VMware \ \ VMware Server \ \ vmware - cmd . bat ` , shell = True ) 0.7324621069522764 0.7324621069522764
+super ( q , self ) . __init__ ( * args , * * kwargs ) 0.039779457777453786 0.09027235033938245
+df . groupby ( [ ` group ` , ` color ` ] ) . agg ( lambda x : x . barplot ( ) ) 0.07957669995812675 0.1264757762064306
+re . findall ( ` ( [ a - f A - F \ \ d ] { 32 } ) ` , data ) 1.0 1.0
+len ( my_list ) 1.0 1.0
+len ( l ) 1.0 1.0
+len ( s ) 1.0 1.0
+len ( len ( my_tuple ) ) 0.41113361690051975 1.0
+len ( len ( my_string ) ) 0.41113361690051975 1.0
+re . sub ( ` < unk > ` , ` \ \ a ` , ` \ \ a ` ) 0.2227227312202058 0.27130567714631193
+a . replace ( ` b ` , ` a ` ) 0.06416610934797054 0.26238657565366286
+sys . path . insert ( 0 , ` / folder_name ` ) 0.31455601883230705 0.6104735835807844
+data [ ` weekday ` ] = data [ ` my_dt ` ] / data [ ` weekday ` ] 0.4917287663707011 0.5399129792069074
+sorted ( iter ( x . items ( ) ) , key = itemgetter ( 1 ) ) 0.12846189726767718 0.2648634566399074
+sorted ( iter ( x . items ( ) ) , key = itemgetter ( 1 ) , reverse = True ) 0.5357110024227318 0.5357110024227318
+np . append ( my_data , var_1 [ : , ( None ) ] , b [ ( None ) , : ] ) 0.05291907393644996 0.4630777161991027
+np . concatenate ( ( a , b ) , axis = 0 ) 0.7807675336587018 0.7807675336587018
+np . concatenate ( [ a , b ] , axis = 1 ) 0.3638016316415843 0.7807675336587018
+np . concatenate ( ( a , b ) , axis = 0 ) 0.0614807050289244 0.06343801610427945
+np . concatenate ( ( a , b ) , axis = 0 ) 0.4052587697205425 0.4630777161991027
+port . google . com ( ) 0.0927110373244369 0.427639889086126
+df [ ` day ` ] = df ( ` sat ` ) 0.20814076895812716 0.20814076895812716
+request . GET . get ( ` < unk > ` , ` % d % b % Y ` ) 0.05431360807863856 0.08493098745313143
+app = subprocess . Assertion Error ( ` wherever ` ) shutil . copy2 ( ` wherever ` , ` wherever ` ) 0.11856660123276004 0.2907153684841096
+cursor . execute ( ` INSERT INTO table ( ` column1 ` ) VALUES ( % s ) ` , ( t2 , ) ) 0.23487811400114963 0.395829708059259
+sorted ( c2 , * * [ c2 ] ) 0.07073666451977358 0.15396503757846464
+sorted ( var_1 , key = lambda x : x [ 1 ] ) 0.09064184944293656 0.09064184944293656
+sorted ( var_1 , key = lambda x : x [ 1 ] ) 0.17049601944551232 0.17049601944551232
+plt . savefig ( ` Arial ` , bbox_inches = ` size ` ) 0.06468344985782862 0.43076683557278517
+pd . to_datetime ( pd . Time Grouper ( hours = 5 ) ) + 1 0.056807783981440915 0.37629571493834174
+print ( element . page_source ) 0.11708995388048027 0.11708995388048027
+df [ ` bob ` ] . apply ( lambda x : int ( x ) ) 0.10521495173810227 0.27668736912821895
+os . system ( ` gnome ` ) 0.05543132826422193 0.2596781831648504
+my_dict [ ` third_key ` ] . update ( { third_key } ) 0.3200286101270289 0.48415247130346006
+T = [ 1 , 2 , 3 ] 0.10552670315936319 0.5946035575013605
+my_list . insert ( 2 , ` 12 ` ) 0.10552670315936319 0.10552670315936319
+my List = list ( int ( x ) for x in my List ) 0.06250381527944884 0.1164394847706997
+struct . pack ( ` < I ` , 1633837924 ) . encode ( ` utf - 8 ` ) 0.033912683915346666 0.0896287978582753
+df . loc [ ~ df [ ` A ` ] . isin ( df ) ] 0.07439820585622745 0.6514390575310556
+df . loc [ gb . groups [ ` Letters ` ] , ( ` C ` , ` C ` ) ] 0.39706417990239445 0.6290297380186451
+list ( zip ( [ 1 , 2 , 3 ] , [ 4 , 5 , 6 ] ) ) 0.8172480674634086 0.8172480674634086
+isinstance ( i , i ) 0.21364350319811704 1.0
+isinstance ( v , v ) 0.21364350319811704 1.0
+isinstance ( v , v ) 0.21364350319811704 1.0
+isinstance ( v , v ) 0.21364350319811704 1.0
+isinstance ( v , v ) 0.21364350319811704 1.0
+isinstance ( variable_name , int ) 0.1520721822274009 0.4723665527410147
+print ( json . load ( f ) ) 0.04410929085933151 0.05617199498008724
+print ( ` < unk > ` . format ( word ) ) 0.5355360591955259 0.7447819789879647
+print ( ` ` . join ( list ) ) 0.5781396287180781 0.5781396287180781
+y = [ [ ] for i in range ( 3 ) ] 0.5266403878479265 0.5266403878479265
+data = [ line . rstrip ( ` \ n ` ) for line in open ( ` C : / name / My Documents / numbers ` ) ] 0.7238602777420687 0.7238602777420687
+` ` ` it is icy ` ` ` . replace ( ` i ` , ` ` ) 0.2884663598494733 0.3977892208302314
+re . sub ( ` < unk > ` , ` ` , it is icy ) 0.5118285025257894 0.7331765459202478
+` ` ` it is icy ` ` ` . translate ( ` ` . join ( c for c in it is icy if c not in c ) ) 0.32690189830136396 1.0
+newstr = oldstr . replace ( ` M ` , ` ` ) 0.02755888620522658 0.1633244488244094
+df . loc [ df [ ` 1 ` ] . isin ( [ ` 1 ` , ` 1 ` ] ) , ` 1 ` ] 0.043441091034192435 0.10475041522097171
+[ list ( item ) for key , item in list ( my List . _fields . items ( ) ) ] 0.04724932626401582 0.20149416157064579
+intstringlist = [ int ( x ) for x in nums ] 0.7632661822742675 1.0
+[ int ( x ) for x in map ( list , zip ( * integers ) ) ] 0.07012887580040736 0.1271235700108297
+print ( ` < unk > % s , < unk > ` % ( 1 , 2 , 3 ) ) 0.041080536624612696 0.18693000799960022
+sum ( x * y for x , y in zip ( 2 . 52 * 100 , 2 . 52 * 100 ) ) 0.14100024578768863 0.587728372510532
+results + = [ each for each in os . listdir ( ` / mydir ` ) if each . endswith ( ` . txt ` ) ] 0.3018604761341459 0.3018604761341459
+results + = [ each for each in os . listdir ( ` / mydir ` ) if each . endswith ( ` . txt ` ) ] 0.5751167640035275 0.5751167640035275
+results + = [ each for each in os . listdir ( ` / mydir ` ) if each . endswith ( ` . txt ` ) ] 0.35107358287502893 0.35107358287502893
+df . legend ( frameon = False ) 0.28117066259517454 0.28117066259517454
+print ( socket . loads ( os . path . normpath ( ` 192 . 168 . x . x ` ) ) ) 0.1283309204075391 0.1283309204075391
+print ( socket . loads ( os . path . normpath ( ` 192 . 168 . x . x ` ) ) ) 0.06146186566180317 0.06146186566180317
+print ( socket . loads ( os . path . normpath ( ` 192 . 168 . x . x ` ) ) ) 0.1951216442969481 0.3183587966603514
+sum ( float ( x ) for x in x ) 0.10441065022170665 0.11117079301529231
+line2 . write ( ` \ n ` . join ( line3 for i , v in zip ( line1 , line2 ) if c ! = ` line3 ` ) ) 0.19887294770987018 0.22872196013470597
+[ j for i in data for j in i ] 0.052885437278555984 0.2610854747220643
+print ( ` \ n ` . format ( foo bar ) ) 0.15842132538336165 0.48109772909788073
+s = s . replace ( ` , ` , ` ` ) 0.22212397126328232 0.36787944117144233
+np . dot ( x [ : , ( 2 ) ] , axis = 0 ) . mean ( ) 0.10996031481933317 0.10996031481933317
+np . mean ( np . mean ( x [ : , ( None ) ] ) , axis = 0 ) 0.10332508211925434 0.23396716301277526
+numpy . loadtxt ( open ( ` new . txt ` , ` rb ` ) , delimiter = ` new . txt ` ) 0.3082420786993326 0.4616709503012712
+sorted ( l , key = lambda x : x [ ` time ` ] ) 0.326434800689293 0.38955974561184126
+sorted ( l , key = l . get , reverse = True ) 0.3556668141465619 0.5280315860920223
+df . apply ( lambda x : x . endswith ( ` ( Hel | Just ) ` ) ) 0.40212637370422916 0.40212637370422916
+print ( ` ` . join ( re . findall ( ` < unk > ` , your_string ) ) ) 0.15035743908395988 0.15035743908395988
+pd . to_datetime ( df . index . dt [ 0 ] , format = ` < unk > ` ) 0.03446220606679614 0.087793953577098
+` ` ` The big brown fox is brown ` ` ` . count ( ` brown ` ) 1.0 1.0
+json . load ( json ) 0.13832543625866361 1.0
+file_name = wget . download ( file_name ) 0.10229197414177782 0.4213952948452608
+re . split ( ` ` , text ) 0.20164945583740662 0.4347208719449914
+re . split ( ` , ` , ` , ` ) 0.5156626918239822 1.0
+[ x . strip ( ) for x in line . split ( ` , ` ) ] 0.1527678022374703 0.4347208719449914
+` ` ` ` ` ` . join ( [ chr ( i ) for i in s ] ) 0.16739796082443717 0.16739796082443717
+list_of_strings . sort ( key = lambda x : s . index ( x [ 0 ] ) ) 0.14634044725461698 0.14634044725461698
+pandas . read_csv ( ` | ` , shell = True ) 0.38641626060171524 0.38641626060171524
+[ dict ( y ) for y in lst ] 0.07694432362901787 0.12689698066272173
+[ x for x in lst if x [ 2 ] = = 1 ] 0.11633270842295028 0.11724489878110315
+sorted ( list_to_be_sorted , key = lambda x : trial_dict [ x ] ) 0.37812440858228624 0.6058398690011476
+sorted ( l , key = lambda i : list ( i . values ( ) ) [ 0 ] , reverse = True ) 0.34079093551290196 0.6165255292124369
+sorted ( data , key = lambda i : list ( i . values ( ) ) [ 0 ] ) 0.05908002399935303 0.13834368456410945
+sorted ( data , key = lambda i : list ( i . values ( ) ) [ 0 ] ) 0.05908002399935303 0.13834368456410945
+df . sort_values ( * * ` row ` ) 0.03579582318331024 0.10332508211925434
+dict ( ( i , list ( trans . items ( ) ) [ i ] ) for i in trans ) 0.056189234972252575 0.15880159258170531
+` ` ` ` ` ` . join ( [ ` A ` , ` B ` , ` C ` , ` D ` ] ) 1.0 1.0
+json . loads ( ` url ` ) 0.24786763988804325 0.24786763988804325
+[ x for x in sents if x is not None ] 0.12579097359902378 0.21162359596656902
+datetime . datetime . now ( ) 0.034166909782241996 0.3079300751569292
+list . sort ( key = lambda x : ( x [ ` points ` ] , x [ ` time ` ] ) ) 0.6694660144597179 0.6694660144597179
+time . time ( ) 0.01756090334171184 0.419468515826214
+suff . append ( [ ( x + y ) for x , y in zip ( long . file . name . jpg , _a ) ] ) 0.16110537632568456 0.24593183576894256
+module = 1 0.04266709328925954 0.2584865769785853
+int ( round ( number ) ) 0.05002278341013454 0.1673872929477023
+float ( numlist ) 0.051416288865472046 1.0
+df . to_csv ( ` 5 ` , index = False ) 0.53107253497887 0.53107253497887
+parser . parse ( ` unescaped ` ) 0.07809849842300641 0.13134549472120793
+[ ord ( c ) for c in range ( 10 ) ] 0.17996531271765898 0.17996531271765898
+new File . write ( ` { 0 : 0b } ` . format ( new File ) ) 0.2767893706232771 0.6052665103345164
+re . sub ( ` < unk > ` , ` ` , string ) . lower ( ) 0.29057611859123506 0.29057611859123506
+print ( dict [ - 1 ] ) 0.25916266987614406 1.0
+f . write ( ` hi there ` ) 0.38875142041440197 0.38875142041440197
+myfile . write ( ` hi there ` ) 0.08239567170091239 0.2910427242500689
+f . write ( ` Hello ` ) 0.06267075388236931 0.38190821314284823
+ord ( ` c ` ) 0.08445588027797912 0.36846158142668817
+Authorized Email . objects . order_by ( ` ? ` ) [ ` added ` ] 0.33065331125965697 0.49082954324424016
+print ( re . findall ( ` \ \ d + ` , ` ` . join ( [ str ( p ) for p in re . finditer ( ` [ A - Za - z ` ] + ` , text ) ] ) ) ) 0.15308917483488027 0.43310177167002284
+` ` ` ` ` ` . join ( ` ` . join ( map ( str , x ) ) for x in re . findall ( ` [ A - Za - z ` ] + ` , text ) ) 0.15185522549235816 0.23619089318235476
+subprocess . call ( [ ` script . ps1 ` , ` powershell . exe ` , script . ps1 ] ) 0.42261082166962227 0.5107267752808742
+sorted ( b , key = lambda e : e [ 0 ] ) 0.12426791424793049 0.22688113269236385
+[ k for k , v in cf . items ( ) if v = = 1 ] 0.06074588070876682 0.1239899236095509
+datetime . datetime . now ( ) 1.0 1.0
+[ i for i in lst if i > 3 ] 0.04242645733779621 0.2232097444911715
+[ ( x1 - x2 ) for x1 , x2 in zip ( a , 13 ) ] 0.08233514927922951 0.25613383117701133
+random . choice ( os . path . expanduser ( ` C : \ \ ` ) ) 0.7160350546947921 1.0
+print ( max ( x , key = x ) ) 0.14107968674307314 0.1731747443734967
+s . tag 0.00017552884381503493 0.03661063752183689
+re . match ( ` find_element_by_xpath ` , document ) 0.06484317078703383 0.1563287122958081
+[ x . strip ( ) for x in mystring . split ( ` ` ) ] 0.21063357946200129 0.23588448106534207
+f = open ( ` r ` , ` r ` ) 0.3646285861936467 0.3646285861936467
+sum ( j for i , j in zip ( data , data ) if i ! = 1 ) 0.09132358968865256 0.16631489479245065
+plt . yscale ( ` log ` , nonposy = ` clip ` ) 0.040161384364076534 0.10252286118120933
