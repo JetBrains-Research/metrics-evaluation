@@ -1,24 +1,37 @@
 from typing import Dict, Tuple
 
-from codebleu.graph_generator.typeparsing.nodes import TypeAnnotationNode, SubscriptAnnotationNode, TupleAnnotationNode, \
-    ListAnnotationNode, AttributeAnnotationNode, IndexAnnotationNode, ElipsisAnnotationNode
+from codebleu.graph_generator.typeparsing.nodes import (
+    TypeAnnotationNode,
+    SubscriptAnnotationNode,
+    TupleAnnotationNode,
+    ListAnnotationNode,
+    AttributeAnnotationNode,
+    IndexAnnotationNode,
+    ElipsisAnnotationNode,
+)
 from codebleu.graph_generator.typeparsing.visitor import TypeAnnotationVisitor
 
-__all__ = ['AliasReplacementVisitor']
+__all__ = ["AliasReplacementVisitor"]
+
 
 class AliasReplacementVisitor(TypeAnnotationVisitor):
     """Replace Nodes with Aliases. Assumes recursion has been resolved in replacement_map"""
+
     def __init__(self, replacement_map: Dict[TypeAnnotationNode, TypeAnnotationNode]):
         self.__replacement_map = replacement_map
 
-    def __replace_full(self, node: TypeAnnotationNode) -> Tuple[TypeAnnotationNode, bool]:
+    def __replace_full(
+        self, node: TypeAnnotationNode
+    ) -> Tuple[TypeAnnotationNode, bool]:
         replaced = False
         seen_names = {node}
         while node in self.__replacement_map:
             node = self.__replacement_map[node]
             replaced = True
             if node in seen_names:
-                print(f'WARNING: Circle between {seen_names}. Picking the {node} for now.')
+                print(
+                    f"WARNING: Circle between {seen_names}. Picking the {node} for now."
+                )
                 break
             else:
                 seen_names.add(node)
@@ -30,15 +43,14 @@ class AliasReplacementVisitor(TypeAnnotationVisitor):
             return replacement
         return SubscriptAnnotationNode(
             value=node.value.accept_visitor(self),
-            slice=node.slice.accept_visitor(self) if node.slice is not None else None)
+            slice=node.slice.accept_visitor(self) if node.slice is not None else None,
+        )
 
     def visit_tuple_annotation(self, node: TupleAnnotationNode):
         replacement, replaced = self.__replace_full(node)
         if replaced:
             return replacement
-        return TupleAnnotationNode(
-            (e.accept_visitor(self) for e in node.elements)
-        )
+        return TupleAnnotationNode((e.accept_visitor(self) for e in node.elements))
 
     def visit_name_annotation(self, node):
         return self.__replace_full(node)[0]
@@ -47,9 +59,7 @@ class AliasReplacementVisitor(TypeAnnotationVisitor):
         replacement, replaced = self.__replace_full(node)
         if replaced:
             return replacement
-        return ListAnnotationNode(
-            (e.accept_visitor(self) for e in node.elements)
-        )
+        return ListAnnotationNode((e.accept_visitor(self) for e in node.elements))
 
     def visit_attribute_annotation(self, node: AttributeAnnotationNode):
         replacement, replaced = self.__replace_full(node)

@@ -19,7 +19,10 @@ class EdgeType(Enum):
 
 class TokenNode:
     """A wrapper around token nodes, such that an object-identity is used for comparing nodes."""
-    def __init__(self, token: str, lineno: Optional[int]=None, col_offset: Optional[int]=None):
+
+    def __init__(
+        self, token: str, lineno: Optional[int] = None, col_offset: Optional[int] = None
+    ):
         assert isinstance(token, str)
         self.token = token
         self.lineno = lineno
@@ -42,7 +45,7 @@ class StrSymbol:
         return self.name == other.name
 
     def __str__(self):
-        return 'Symbol: ' + self.name
+        return "Symbol: " + self.name
 
 
 class SymbolInformation(NamedTuple):
@@ -52,17 +55,17 @@ class SymbolInformation(NamedTuple):
     symbol_type: str
 
     @classmethod
-    def create(cls, name: str, symbol_type: str) -> 'SymbolInformation':
+    def create(cls, name: str, symbol_type: str) -> "SymbolInformation":
         return SymbolInformation(name, [], {}, symbol_type)
 
 
 def prettyprint_graph(g: Dict):
-    g['token-sequence'] = [f"{ind}_{g['nodes'][ind]}" for ind in g['token-sequence']]
-    g['edges'] = {
+    g["token-sequence"] = [f"{ind}_{g['nodes'][ind]}" for ind in g["token-sequence"]]
+    g["edges"] = {
         edge_type: {
             f"{v}_{g['nodes'][v]}": [f"{u}_{g['nodes'][u]}" for u in us]
-            for v, us in g['edges'][edge_type].items()
+            for v, us in g["edges"][edge_type].items()
         }
-        for edge_type in g['edges']
+        for edge_type in g["edges"]
     }
     PrettyPrinter().pprint(g)

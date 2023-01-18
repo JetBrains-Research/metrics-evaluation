@@ -1,10 +1,10 @@
 from abc import ABC
 from typing import Any
 
-__all__ = ['TypeAnnotationVisitor']
+__all__ = ["TypeAnnotationVisitor"]
+
 
 class TypeAnnotationVisitor(ABC):
-
     def visit_subscript_annotation(self, node, *args) -> Any:
         pass
 
@@ -13,7 +13,6 @@ class TypeAnnotationVisitor(ABC):
 
     def visit_name_annotation(self, node, *args) -> Any:
         pass
-
 
     def visit_list_annotation(self, node, *args) -> Any:
         pass

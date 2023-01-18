@@ -8,7 +8,12 @@ from networkx.algorithms.similarity import optimize_graph_edit_distance
 from ruby.util import get_ast_node_label, get_ast_children
 
 
-def convert_ast_to_graph(root: Union[str, ast.AST,]) -> nx.DiGraph:
+def convert_ast_to_graph(
+    root: Union[
+        str,
+        ast.AST,
+    ]
+) -> nx.DiGraph:
     g = nx.DiGraph()
     nodes = []
     edges = []
@@ -24,9 +29,9 @@ def convert_ast_to_graph(root: Union[str, ast.AST,]) -> nx.DiGraph:
         label = get_ast_node_label(cur_node)
         node_index = add_node()
 
-        nodes.append((node_index, {'label': label}))
+        nodes.append((node_index, {"label": label}))
         if parent is not None:
-            edges.append((parent, node_index, {'label': 'AST'}))
+            edges.append((parent, node_index, {"label": "AST"}))
 
         for child in get_ast_children(cur_node):
             traverse(child, node_index)
@@ -39,14 +44,11 @@ def convert_ast_to_graph(root: Union[str, ast.AST,]) -> nx.DiGraph:
 
 def convert_dict_to_graph(dict_g: Dict) -> nx.DiGraph:
     g = nx.DiGraph()
-    nodes = [
-        (i, {'label': node})
-        for i, node in enumerate(dict_g['nodes'])
-    ]
+    nodes = [(i, {"label": node}) for i, node in enumerate(dict_g["nodes"])]
     edges = [
-        (int(v), int(u), {'label': edge_type})
-        for edge_type in dict_g['edges']
-        for v, us in dict_g['edges'][edge_type].items()
+        (int(v), int(u), {"label": edge_type})
+        for edge_type in dict_g["edges"]
+        for v, us in dict_g["edges"][edge_type].items()
         for u in us
     ]
     g.add_nodes_from(nodes)
@@ -54,13 +56,17 @@ def convert_dict_to_graph(dict_g: Dict) -> nx.DiGraph:
     return g
 
 
-def compute_ged(sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_cost: bool = False) \
-        -> Tuple[float, float]:
+def compute_ged(
+    sample_graph: nx.DiGraph, reference_graph: nx.DiGraph, use_edge_cost: bool = False
+) -> Tuple[float, float]:
 
     ged_generator = optimize_graph_edit_distance(
-        sample_graph, reference_graph,
-        node_match=lambda v, u: v['label'] == u['label'], edge_match=lambda e1, e2: e1['label'] == e2['label'],
-        edge_ins_cost=lambda e: 1 if use_edge_cost else 0, edge_del_cost=lambda e: 1 if use_edge_cost else 0
+        sample_graph,
+        reference_graph,
+        node_match=lambda v, u: v["label"] == u["label"],
+        edge_match=lambda e1, e2: e1["label"] == e2["label"],
+        edge_ins_cost=lambda e: 1 if use_edge_cost else 0,
+        edge_del_cost=lambda e: 1 if use_edge_cost else 0,
     )
     total_size = sample_graph.number_of_nodes() + reference_graph.number_of_nodes()
     if use_edge_cost:

@@ -12,9 +12,11 @@ def string_similarity(sample: str, reference: str) -> float:
     sample_len = len(sample_tokens)
     reference_len = len(reference_tokens)
     if sample_len == 0 and reference_len == 0:
-        return 1.
-    distance = editdistance.eval(sample_tokens, reference_tokens) / max(sample_len, reference_len)
-    return 1. - distance
+        return 1.0
+    distance = editdistance.eval(sample_tokens, reference_tokens) / max(
+        sample_len, reference_len
+    )
+    return 1.0 - distance
 
 
 def tree_similarity(sample: str, reference: str) -> Optional[float]:
@@ -27,10 +29,12 @@ def tree_similarity(sample: str, reference: str) -> Optional[float]:
         return None
 
     tree_edit_distance, total_size = compute_ged(
-        convert_ast_to_graph(sample_tree), convert_ast_to_graph(reference_tree), use_edge_cost=False
+        convert_ast_to_graph(sample_tree),
+        convert_ast_to_graph(reference_tree),
+        use_edge_cost=False,
     )
 
-    return 1. - tree_edit_distance / total_size
+    return 1.0 - tree_edit_distance / total_size
 
 
 def graph_similarity(sample: str, reference: str) -> Optional[float]:
@@ -43,10 +47,12 @@ def graph_similarity(sample: str, reference: str) -> Optional[float]:
         return None
 
     graph_edit_distance, total_size = compute_ged(
-        convert_dict_to_graph(sample_graph), convert_dict_to_graph(reference_graph), use_edge_cost=True
+        convert_dict_to_graph(sample_graph),
+        convert_dict_to_graph(reference_graph),
+        use_edge_cost=True,
     )
 
-    return 1. - graph_edit_distance / total_size
+    return 1.0 - graph_edit_distance / total_size
 
 
 def ruby(sample: str, reference: str) -> Tuple[float, str]:
